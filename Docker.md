@@ -1,23 +1,23 @@
-##Docker
-#####OCI：开放式容器镜像；
-#####OCF：开放式容器格式；
-####LXC：LinuX Container
+## Docker
+##### OCI：开放式容器镜像；
+##### OCF：开放式容器格式；
+#### LXC：LinuX Container
 	chroot：根切换；
 	namespace：名称空间；
 	CGroups：控制组；
 
-####虚拟化：
+#### 虚拟化：
 	主机虚拟化：
 		Type 1：直接在硬件上运行VMM；
 		Type 2：在OS上运行VMM，每个虚拟机都有自己的内核；
 
-#####虚拟机的隔离性：
+##### 虚拟机的隔离性：
 	每个虚拟机都有自己的用户空间、网络空间、进程树、根文件系统、UTS空间；（由容器技术的名称空间实现）；
 	控制组：能控制每个虚拟机所能使用的资源，将物理机的资源进行切割；
 
-#####容器：
+##### 容器：
 	利用chroot、namespace、CGroup等技术实现用户空间的隔离、主机资源的切割与控制；
-#####	容器的主要目的：
+##### 	容器的主要目的：
 	隔离进程；
 	名称空间：
 		IPC
@@ -37,17 +37,18 @@ Docker
 	前期：docker只是lxc的更易用的前端管理器；
 
 
-######Docker每个容器只用于一个进程；
+###### Docker每个容器只用于一个进程；
 	好处：利于分发；
 
 
-###lxc简单应用 
+### lxc简单应用 
+
 1. 安装：
 ```
 ~]# yum -y install  lxc  lxc-templates  
 ```
 
-#####命令：
+##### 命令：
 * lxc-checkconfig：检查lxc运行环境；
 * xc-ls, lxc-create：创建lxc container；
 * lxc-start：启动容器； 
@@ -59,14 +60,14 @@ Docker
 * lxcdestroy：删除某个容器；
 * ...
 
-####WebGUI：lxc-webapanel：
+#### WebGUI：lxc-webapanel：
 ```
 ~]# yum -y install python-flask
 ~]#  git clone https://github.com/lxc-webpanel/LXC-Web-Panel.git 
 ~]# python LXC-Web-Panel/lwp.py 
 ```
 
-####Docker的三个组件：
+#### Docker的三个组件：
 	1. Registry：镜像仓库；
 	2. Docker_Host：
 			* Containers：
@@ -74,29 +75,29 @@ Docker
 	3. Client：
 
 
-#####docker daemon：
+##### docker daemon：
 * 接收并管理对docker daemon API接口发起的对docker object的各种管理请求
-#####docker object：	
+##### docker object：	
 * images
 * containers
 * networks
 * volumes
 
-####docker client：
+#### docker client：
 * 用户与docker交互的命令行工具；
 
-####docker registries：
+#### docker registries：
 * 用来存储docker images的一个镜像仓库；
 * 一个registries可以有多个仓库；
 * docker的组成：
 	* index 
 
-######docker删除文件，只是将文件标记为不可用而已； 
+###### docker删除文件，只是将文件标记为不可用而已； 
 
-###Images：
-#####Docker镜像含有启动容器所需要的文件及其内容，因此，其用于创建并启动docker容器；
+### Images：
+##### Docker镜像含有启动容器所需要的文件及其内容，因此，其用于创建并启动docker容器；
 
-######采用分层构建机制，最底层为bootfs，其上为rootfs，
+###### 采用分层构建机制，最底层为bootfs，其上为rootfs，
 `bootfs：用于系统引导的文件系统，包括bootloader和kernel，容器启动完成后会被卸载，以节约内存资源；`
 `rootfs：位于bootfs之上，表现为docker容器的根文件系统；`
 ```
@@ -107,17 +108,17 @@ Docker
 
 * 每个镜像都是基于它的底层镜像构建出来的，以及附加一些额外的功能； 
  
-#####Devicemapper：
+##### Devicemapper：
 * Device Mapper是Linux2.6内核中支持逻辑卷管理的通用设备映射机制，它为了实现用于存储资源管理的块设备驱动提供了一个高度模块化的内核架构；
 
-#####Docker Registry的分类：
+##### Docker Registry的分类：
 * 官方Docker Hub：官方Registry；
 * Sponsor Registry：第三方；
 * Mirror Registry ：第三方；
 * Vendor Registry：由发布Docker镜像的供应商提供的Registry
 * Private Registry：私有Registry
 
-####Registry(repository and index)：
+#### Registry(repository and index)：
 ```
 1. 由某个特定的docker镜像的所有迭代版本组成的镜像组合；
 2. 一个Registry中存在多个Repostory
@@ -125,7 +126,7 @@ Docker
 	用户仓库名称格式“用户名/仓库名”；
 3. 每个仓库可以包含多个Tag（标签），每个标签对应一个镜像；
 ```
-####Index：
+#### Index：
 ```
 1. 维护用户账号、镜像的效验以及公共命名空间信息；
 2. 相当于Registry提供了一个完成用户认证等功能的检索接口；
@@ -134,11 +135,11 @@ Docker
 
  push可以将制作好的镜像文件推送到本地镜像仓库或远程镜像仓库；
 
-###Docker Image Layer：
+### Docker Image Layer：
 * 位于下层的镜像称为父镜像，(Parent image)，最底层的称为基础镜像(Base image)；
 * 最上层的为"可读写"层，其下的均为"只读"层；
 
-###Containers：
+### Containers：
 * 一个容器就是一个运行中的镜像；
 * 可以按照自己的需要启动、停止、删除一个容器；
 
@@ -162,6 +163,7 @@ docker命令：
 	* --add-host：为容器的hosts文件添加一条解析项；
 	* -p：指定端口号，将容器的指定端口暴露出来（实际上是在宿主机的netfilter上生成一条DNAT规则，实现端口映射）
 		* 暴露端口有4中暴露方式：
+		
 		`1. 宿主机的所有地址的随机端口映射容器的指定端口：
 		-p <Container_port>`
 
@@ -181,7 +183,7 @@ docker命令：
 * export：导出容器为tar格式的镜像文件；
 * load：装载一个image镜像文件 `-i`;
 
-####镜像相关的操作：
+#### 镜像相关的操作：
 * 镜像的生成途径：
 ```
 	1. Dockerfile
@@ -189,7 +191,7 @@ docker命令：
 	3. Docker Hub automated builds
 ```
 
-#####基于容器制作镜像:
+##### 基于容器制作镜像:
 ```
 ~]# docker commit 
 #格式：docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
@@ -208,11 +210,11 @@ docker命令：
 ~]# docker commit -p -a "zero <zero@magedu.com>" -c 'CMD ["httpd","-DFOREGROUND"]' test1 new_image:tag
 ```
 
-####基于Dockerfile创建镜像：
+#### 基于Dockerfile创建镜像：
 * 基于Dockerfile的源码文件构建出一个docker images
 * dockerfile的每一条指令都会为docker镜像生成一层镜像层；
 
-####Dockerfile Format：
+#### Dockerfile Format：
 * 整个dockerfile文件都是有注释行与指令行组成；构建镜像时会按照dockerfile中指令的顺序逐条执行，每一条指令都会为docker镜像构建一层新的镜像层
 * Dockerfile的第一个非注释行必须为`FROM`
 
@@ -226,6 +228,7 @@ docker命令：
 	`${variable_name:+word}`：如果变量存在且不空，则使用word的值，否则，则返回错误；
 
 ---
+
 * FROM：
 	* FROM指令最重要的且必须为Dockerfile文件开篇第一个非注释行，用于为镜像文件构建过程指定基础镜像，后续的指令运行于此基础镜像所提供的运行环境；
 	* 基础镜像可以为任何可用的镜像文件，默认情况下，docker build会在docker主机上查找指定的镜像文件，在其不存在时，则会从Docker Hub Registry上拉取所需要的镜像文件；
@@ -267,12 +270,14 @@ docker命令：
 		* EXPOSE `<port>[/<protocol>][<port>[/<protocol>]...]`
 
 * 示例Dockerfile：
+
 ```
 FROM busybox:latest
 MAINTAINER "twoling <twoling@magedu.com>"
 VOLUME /data/httpd		#由Docker随机挂载一个卷；
 EXPOSE 80/tcp			#为容器打开某指定端口实现与外部通信；
 ```
+
 * 打开容器的指定端口需要在运行docker容器时指定-p或-P选项；
 
 * ENV：用于为镜像定义所需的环境变量，并可被Dockerfile文件中位于其后的其他指令（如ENV、ADD、COPY等指令）调用；
@@ -313,7 +318,7 @@ EXPOSE 80/tcp			#为容器打开某指定端口实现与外部通信；
 	*  Syntax：
 		*  ONBUILD`<INSTRUCTION>`
 
-####构建镜像：
+#### 构建镜像：
 ```
 #需要在Dockerfile文件所在的目录中执行以下命令；
 ~]# docker build [OPTION] PATH | URL
@@ -349,25 +354,25 @@ OPTION:
 #示例：
 ~]# docker load -i centos7
 ```
-####Docker Data Volume：
+#### Docker Data Volume：
 * 卷为docker提供了独立于容器的数据管理机制； 
 * 卷实现了"程序(镜像)"和"数据(卷)"的分离，以及"程序(镜像)"和"制作镜像的主机"分离，用户制作镜像时无需在考虑镜像运行的容器所在的主机的环境；
 
 * Docker镜像是由多个只读层叠加而成，启动容器时，Docker会加载只读镜像层并在镜像栈顶部添加一个读写层；如果运行中的容器修改了现有的一个已经存在的文件，那么该文件将会从读写层下面的只读层复制到读写层，该文件的只读副本仍然存在，只是已经被该文件在读写层的副本所隐藏；此即"写时复制（cow）"机制； 
 
 
-#####将httpd运行于前台：
+##### 将httpd运行于前台：
 	选项：-DFOREGROUND
-#####将Nginx运行于前台：
+##### 将Nginx运行于前台：
 	-g "daemon off;"
 
-###Sharing Volume：
+### Sharing Volume：
 1. 多个Container使用同一个主机目录；
 2. 复制一个容器的卷；
 	--volumes-from `<Container>  <Images>`
 	docker rm -v 
 
-#####docker的网络默认为NAT模式
+##### docker的网络默认为NAT模式
 
 docker的四种网络模型：
 1. 封闭式容器；
@@ -378,7 +383,7 @@ docker的四种网络模型：
 ```
 4. 开放式容器；
 
-####创建联盟式容器：
+#### 创建联盟式容器：
 ```
 #创建一个容器:
 ~]# docker run -it --rm --name c1 centos:net-tools
@@ -388,14 +393,14 @@ docker的四种网络模型：
 ```
 
 
-###Docker Registry：
-#####registry的组成格式：
+### Docker Registry：
+##### registry的组成格式：
 1. index：索引文件，存放着此Registry的所有镜像仓库的索引以及访问本Registry的所有用户账号和口令等信息；
 2. 存储系统：存放用户向此Rgistry上push的所有镜像；
 
-#####Docker-Registry：docker官方提供的供用户自建registry的项目；
+##### Docker-Registry：docker官方提供的供用户自建registry的项目；
 
-####自建Registry：
+#### 自建Registry：
 1. 安装docker-registry：
 ```
 ~]# yum -y install docker-registry	#安装后的软件包名为：docker-distribution，也可直接安装docker-distribution，为同一个包；
@@ -432,7 +437,7 @@ echo "INSECURE_REGISTRY='--insecure-registry 172.18.54.3:5000'" >> /etc/sysconfi
 ~]# docker push 172.18.54.3:5000/centos:latest
 ```
 
-#####使用nginx反代registry：
+##### 使用nginx反代registry：
 ```
 #安装ngnx：
 ~]# yum -y install nginx
@@ -484,18 +489,18 @@ location /v2/ {
 * API Server：实现对node agent进行管控；
 * Lable：用于对pod进行打标，已实现调度；
 
-######Pod：
+###### Pod：
 * pod是由一个或多个容器组成的组，同一组pod必须位于同一节点上，统一调度，共享上下文；
 * 一组pod共享同一IP，统一PORT，同一主机名和存储；
 * pod是kubernetes用于部署容器的最小单位；
 * 位于同一个pod的的容器是基于IPC通信（共享内存）；
 `pod的创建需要有pod的定义文件，然后调用Master的API接口来调度pod`
 
-#####Replication Controller：
+##### Replication Controller：
 * 用与确保指定的pod数量	保持为所期望的数量，如果多出，则kill掉，如果少，则自动创建；
 * Replication引用各pod是由lable来实现的；
 
-####Services：
+#### Services：
 * Kubernetes Services用来将一组pods定义成一个逻辑组，并且定义了该逻辑组的访问策略；每个逻辑组即可称为微服务；
 * 通过Label Selector将同一类别的pods定义成一个逻辑组；
 * Endpoints API监控service内部pods并能让services做出响应的调整；
@@ -507,14 +512,14 @@ location /v2/ {
  * 拥有独立的IP与端口
  * 有kube-proxy来管理其ip并能在services内部的pods发生变化是修改对应的iptables规则；
 
-####kube-proxy：
+#### kube-proxy：
 * 可以代理UDP和TCP协议
 * 不理解HTTP协议
 * 负载均衡代理
 * 带访问services
 * 轮询的方式负载均衡TCP或者UDP流量
 
-####Proxy-Mode：
+#### Proxy-Mode：
 * userspace：
 	* services会监听一个随机端口；
 * iptables
@@ -529,7 +534,7 @@ location /v2/ {
 	* 云：OS及其它内容；IaaS
 * SaaS：软件级服务；
 
-####Flannel：
+#### Flannel：
 
 ---
 `Flanner可以为容器提供网络服务，其模型为全部的容器使用一个network，然后在每个host上从network上划分出一个子网subnet，为host上的容器创建网络时，从subnet中分配一个ip给容器。`
@@ -543,7 +548,7 @@ location /v2/ {
 ---
 
 
-###安装Kubernetes集群：
+### 安装Kubernetes集群：
 
 1. 安装etcd：
 ~]# yum -y insatll etcd
