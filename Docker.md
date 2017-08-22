@@ -164,12 +164,16 @@ docker命令：
 		* 暴露端口有4中暴露方式：
 		`1. 宿主机的所有地址的随机端口映射容器的指定端口：
 		-p <Container_port>`
+
 		`2. 宿主机上的所有地址的指定端口映射到容器的指定端口：
 		-p <Host_port>:<Container_port>`
+		
 		`3. 宿主机上的指定IP的随机端口映射到容器的指定端口：
 		-p <IP>::<Container_port>`
+		
 		`4. 宿主机上指定IP的指定端口映射到容器的指定端口：
 		-p <IP>:<Host_prot>:<Container_prot>`
+		
 	* -P --expose `<port>`：一对一暴露容器的端口，多个端口每个端口用--expose来引导；
 
 
