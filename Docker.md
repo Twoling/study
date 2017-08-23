@@ -63,15 +63,15 @@ Docker
 #### WebGUI：lxc-webapanel：
 ```
 ~]# yum -y install python-flask
-~]#  git clone https://github.com/lxc-webpanel/LXC-Web-Panel.git 
+~]# git clone https://github.com/lxc-webpanel/LXC-Web-Panel.git 
 ~]# python LXC-Web-Panel/lwp.py 
 ```
 
 #### Docker的三个组件：
 	1. Registry：镜像仓库；
 	2. Docker_Host：
-			* Containers：
-			* Images：
+		* Containers：
+		* Images：
 	3. Client：
 
 
