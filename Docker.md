@@ -1,4 +1,4 @@
-## Docker
+## Container
 ##### OCI：开放式容器镜像；
 ##### OCF：开放式容器格式；
 #### LXC：LinuX Container
@@ -66,7 +66,7 @@ Docker
 ~]# git clone https://github.com/lxc-webpanel/LXC-Web-Panel.git 
 ~]# python LXC-Web-Panel/lwp.py 
 ```
-
+## Docker
 #### Docker的三个组件：
 	1. Registry：镜像仓库；
 	2. Docker_Host：
