@@ -14,7 +14,7 @@
 
 
 ### 配置Tomcat：
-* 配置环境变量：
+* 配置环境变量
 ```
 vim /etc/profile.d/tomcat.sh
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/apr/lib
@@ -22,10 +22,10 @@ export LD_RUN_PATH=$LD_RbUN_PATH:/usr/local/apr/lib
 ```
 
 * 导出设置
-  * `. /etc/profile.d/tomcat.sh`
+   * `. /etc/profile.d/tomcat.sh`
 
 * 在tomcat的server.xml配置文件中启用apr模式
-**在对应的Connector中添加:**
+在对应的Connector中添加:
 `protocol="org.apache.coyote.http11.Http11AprProtocol"`
 
 * 重启tomcat
