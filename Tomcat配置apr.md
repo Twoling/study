@@ -33,7 +33,7 @@ export LD_RUN_PATH=$LD_RbUN_PATH:/usr/local/apr/lib
 
 ## 安装时的问题：
 
-**如果提示"error: Your version of OpenSSL is not compatible with this version of tcnative" 则系统上的openssl-devel的软件包不兼容，需要从openssl官网下载最新的openssl进行安装；**
+**如果在config时提示"error: Your version of OpenSSL is not compatible with this version of tcnative" 则系统上的openssl-devel的软件包不兼容，需要从openssl官网下载最新的openssl进行安装；**
 * 解决步骤：
 
 ```
