@@ -270,7 +270,7 @@ repl_backlog_histlen:152008
 # 利用sentinel的通知脚本实现集群vip自动迁移
 
 1. **在sentinel配置文件添加一下选项：**
-  `sentinel client-reconfig-script mymaster /opt/redis-4.0.2/switch.sh`
+> `sentinel client-reconfig-script mymaster /opt/redis-4.0.2/switch.sh`
 * 当发生`failover`时，会启动此处所指定的脚本程序,在启动脚本时sentinel会向该脚本传递指定的参数；分别为：`<master-name> <role> <state> <from-ip> <from-port> <to-ip> <to-port>`*
 
 2. **switch.sh脚本内容：**
