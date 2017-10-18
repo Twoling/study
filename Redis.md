@@ -141,7 +141,7 @@ sentinel down-after-milliseconds mymaster 3000
 #sentinel会定期向master发送ping请求，如果在指定时间内master没返回有效回应，那么未收到回应的sentinel就会主观的认为master已经不可用了，这个指令则是指定ping请求的回复超时时间；单位毫秒；
 ```
 
-** 主从上的sentinel配置相同 **
+**主从上的sentinel配置相同**
 
 ---
 
