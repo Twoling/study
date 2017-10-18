@@ -1,13 +1,13 @@
 ## Tomcat配置apr
-1. 安装依赖包:
+* 安装依赖包:
 
 `yum -y install openssl-devel apr-devel`
 
-2. 下载Native 1.2.12
+* 下载Native 1.2.12
 
 `wget http://www-eu.apache.org/dist/tomcat/tomcat-connectors/native/1.2.12/source/tomcat-native-1.2.12-src.tar.gz`
 
-3. 解压、编译安装
+* 解压、编译安装
 
  `tar xf tomcat-native-1.2.12-src.tar.gz` 
 
@@ -28,7 +28,7 @@ make && make install
 ```
 **如果出现上述问题，在编译openssl完成后，再次执行configure的时候需要指定新版openssl的位置   ./configure --with-ssl=/usr/local/openssl**
 
-4. make && make install
+* make && make install
 
 
 ### 配置Tomcat：
