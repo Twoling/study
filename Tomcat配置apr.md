@@ -10,7 +10,7 @@
   * `cd tomcat-native-1.2.12-src/native`
   * `./configure`
 
-* make && make install
+* `make && make install`
 
 
 ### 配置Tomcat：
@@ -42,4 +42,5 @@ export LD_RUN_PATH=$LD_RbUN_PATH:/usr/local/apr/lib
  make && make install
 
 ```
-**如果出现上述问题，在编译openssl完成后，再次执行configure的时候需要指定新版openssl的位置   ./configure --with-ssl=/usr/local/openssl**
+**如果出现上述问题，在编译openssl完成后，再次执行configure的时候需要指定新版openssl的位置**
+* `./configure --with-ssl=/usr/local/openssl`
