@@ -253,18 +253,18 @@ repl_backlog_histlen:152008
 ---
 ##### Sentinel之间和Slaves之间的自动发现机制：
 >虽然sentinel集群中各个sentinel都互相连接彼此来检查对方的可用性以及互相发送消息。但是你不用在任何一个sentinel配置任何其它的sentinel的节点。因为sentinel利用了master的发布/订阅机制去自动发现其它也监控了统一master的sentinel节点。
-
+>
 >通过向名为`__sentinel__:hello`的管道中发送消息来实现。
-
+>
 >同样，你也不需要在sentinel中配置某个master的所有slave的地址，sentinel会通过询问master来得到这些slave的地址的。
-
+>
 >每个sentinel通过向每个master和slave的发布/订阅频道`__sentinel__:hello`每秒发送一次消息，来宣布它的存在。
 >每个sentinel也订阅了每个master和slave的频道`__sentinel__:hello`的内容，来发现未知的sentinel，当检测到了新的sentinel，则将其加入到自身维护的master监控列表中。
 >每个sentinel发送的消息中也包含了其当前维护的最新的master配置。如果某个sentinel发现
 >自己的配置版本低于接收到的配置版本，则会用新的配置更新自己的master配置。
-
+>
 >在为一个master添加一个新的sentinel前，sentinel总是检查是否已经有sentinel与新的sentinel的进程号或者是地址是一样的。如果是那样，这个sentinel将会被删除，而把新的sentinel添加上去。
-
+>
 ---
 
 #### 利用sentinel的通知脚本实现集群vip自动迁移
