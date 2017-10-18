@@ -267,7 +267,7 @@ repl_backlog_histlen:152008
 >
 ---
 
-#### 利用sentinel的通知脚本实现集群vip自动迁移
+# 利用sentinel的通知脚本实现集群vip自动迁移
 
 1. **在sentinel配置文件添加一下选项：**
 `sentinel client-reconfig-script mymaster /opt/redis-4.0.2/switch.sh`
