@@ -179,7 +179,7 @@ master0:name=mymaster,status=ok,address=172.18.54.3:6379,slaves=2,sentinels=3
 #### failover测试：
 1. 手动将master关闭模拟master宕机。
 
-    kill `ps aux | awk '/src\/redis-server/{print $2}'`
+    `redis-cli -p 6379 shutdown`
 
 * 如果监控sentinel的日志可以很直观的看出failover的过程：
 ```
