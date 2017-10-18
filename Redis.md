@@ -299,7 +299,6 @@ fi
 `redis-cli -p 6379 shutdown`
 
 3. 在转移后的redis master主服务器上查看vip是否转移
-![Alt text](./1508324892110.png)
+![Alt text](./sentinel_vip_test2.png)
 
-                                                                                                                                                                                                                                                                                                                                                           
-
+!!!>.<!!!
