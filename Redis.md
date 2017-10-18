@@ -76,7 +76,7 @@ masterauth 123
 ~]# redis-cli
 127.0.0.1:6379> AUTH 123
 OK
-127.0.0.1:6666> INFO REPLICATION
+172.18.54.3:6379> INFO REPLICATION
 # Replication
 role:master
 connected_slaves:2
@@ -154,7 +154,7 @@ sentinel down-after-milliseconds mymaster 3000
 * 连接Sentinel查看集群信息：
 ```
 ~]# redis-cli -p 26379
-127.0.0.1:26379> INFO Sentinel
+172.18.54.3:26379> INFO Sentinel
 # Sentinel
 sentinel_masters:1
 sentinel_tilt:0
