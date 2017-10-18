@@ -22,7 +22,8 @@ export LD_RUN_PATH=$LD_RbUN_PATH:/usr/local/apr/lib
 ```
 
 * 导出设置
-   * `. /etc/profile.d/tomcat.sh`
+
+  * `. /etc/profile.d/tomcat.sh`
 
 * 在tomcat的server.xml配置文件中启用apr模式，在对应的Connector中添加:
    `protocol="org.apache.coyote.http11.Http11AprProtocol"`
