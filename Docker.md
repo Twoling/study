@@ -454,7 +454,7 @@ location /v2/ {
 ~]# systemctl start nginx
 ```
 
-###Kubernetes：
+### Kubernetes：
 1. 开源系统；
 2. 管理容器化的应用程序；
 3. 实现部署、维护与伸缩；
