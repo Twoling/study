@@ -10,18 +10,18 @@
 * 修改defines.inc.php文件：
   * 修改第45行：
   ```
-  #修改前
-  define('ZBX_GRAPH_FONT_NAME',                'DejaVuSans'); // font file name
-  #修改后
-  define('ZBX_GRAPH_FONT_NAME',           'msyh'); // font file name
+  # 修改前
+  `define('ZBX_GRAPH_FONT_NAME',                'DejaVuSans'); // font file name`
+  # 修改后
+  `define('ZBX_GRAPH_FONT_NAME',           'msyh'); // font file name`
 
   ```
   * 修改第93行
   ```
-  #修改前
-  define('ZBX_FONT_NAME', 'DejaVuSans');
-  #修改后
-  define('ZBX_FONT_NAME', 'msyh');
+  # 修改前
+  `define('ZBX_FONT_NAME', 'DejaVuSans');`
+  # 修改后
+  `define('ZBX_FONT_NAME', 'msyh');`
 
   ```
 **操作完成zabbix无需重启即可生效**
