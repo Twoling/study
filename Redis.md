@@ -66,6 +66,8 @@ slaveof 172.18.54.3 6379
 #指明master的地址及端口
 masterauth 123
 #指定连接master时的认证密码；
+requirepass 123 
+#设置redis认证
 ```
 
 2. 启动Redis
