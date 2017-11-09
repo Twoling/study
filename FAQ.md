@@ -6,7 +6,9 @@ Error: failed to remove containers: [oracle]
 
 
 * 解决方式:
-`umount /var/lib/docker/devicemapper/mnt/b719043fc325049ee11e76bddd45f60a22c72b6125a0f0d1b278cd928c724332   --->    docker rm  b719043fc32`
+```
+umount /var/lib/docker/devicemapper/mnt/b719043fc325049ee11e76bddd45f60a22c72b6125a0f0d1b278cd928c724332   --->    docker rm  b719043fc32
+```
 
 
 * centos6.5基础镜像修改root密码：
