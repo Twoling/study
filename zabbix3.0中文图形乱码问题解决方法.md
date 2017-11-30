@@ -2,6 +2,7 @@
 * 下载或者拷贝Windows机器上的微软雅黑字体文件(msyh.ttc 完整路径：C:\Windows\Fonts\msyh.ttc)
 * 将字体文件的后缀名从.ttc改为.ttf
 * 将字体文件上传到zabbix服务器的前端资源的fonts目录中去。
+* 字体文件下载: <https://github.com/Twoling/study/blob/master/msyh.ttf>
 
 **注：如果是通过yum安装，zabbix前端页面文件默认在/usr/share/zabbix目录中，如果通过源码安装，前端页面的存放位置为安装后复制`.../prontends/php/*`目录下资源的位置**
 
