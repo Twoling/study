@@ -7,7 +7,7 @@
 **注：如果是通过yum安装，zabbix前端页面文件默认在/usr/share/zabbix目录中，如果通过源码安装，前端页面的存放位置为安装后复制`.../prontends/php/*`目录下资源的位置**
 
 
-### 修改zabbix前端php文件
+### 修改zabbix前端php文件(文件位于include目录下)
 * 修改defines.inc.php文件：
   * 修改第45行：
   ```
