@@ -9,7 +9,7 @@ content=$@
 ToUser=User       # 企业微信通讯录中的有效用户
 msgtype=text
 CropID=xxxxxxxxxxxxxxxxxx  # ID
-Secret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx # 响应的密钥
+Secret=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx # 相应的密钥
 ToKenURL=https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${CropID}\&corpsecret=${Secret}
 ToKen=`curl -s -G ${ToKenURL} | awk -F"," '{print $3}' | awk -F":" 'gsub(/"/,"",$2){print $2}'`
 SendURL=https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${ToKen}
