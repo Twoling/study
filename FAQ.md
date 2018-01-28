@@ -26,5 +26,5 @@ PWOpen: No such file or directory
 * 解决方式：
 ```
 vim /etc/ssh/sshd_config
-UsePAM off -->   UsePAM no
-  ```
+UsePAM off -->   UsePAM on
+```
