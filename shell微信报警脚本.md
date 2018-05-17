@@ -1,3 +1,4 @@
+###### Shell版本：
 ```
 #!/bin/bash
 #
@@ -31,3 +32,5 @@ EOF
 
 /usr/bin/curl --data-ascii "$(output $content)" $SendURL
 ```
+
+###### Python版本：
