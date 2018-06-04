@@ -38,7 +38,7 @@ export LD_RUN_PATH=$LD_RbUN_PATH:/usr/local/apr/lib
 
 ```
  wget https://github.com/openssl/openssl/archive/OpenSSL_1_0_2-stable.zip
- unzip openssl-1.0.2l.tar.gz
+ tar xf openssl-1.0.2l.tar.gz
  cd openssl-OpenSSL_1_0_2-stable
  ./config shared
  make && make install
