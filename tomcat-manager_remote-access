@@ -8,6 +8,6 @@
 
 <role rolename="manager-gui"/>
 <role rolename="admin-gui"/>
-<user username="tomcat" password="123" roles="manager-gui,admin-gui">
+<user username="tomcat" password="123" roles="manager-gui,admin-gui"/>
 
 3. 重启tomcat即可生效
