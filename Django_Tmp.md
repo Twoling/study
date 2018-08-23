@@ -1,4 +1,5 @@
-### 安装Django
+## Django
+#### 安装Django
 1. 检测是否已安装django，在shell中输入python命令，进入python交互界面，尝试导入django模块
 ```
 >>> import django
