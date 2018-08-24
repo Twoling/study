@@ -2,12 +2,14 @@
 ## 目录 
 * [安装Django](#安装Django)
 * [创建目录](#创建目录)
-* [目录说明](#目录说明)
+	* 初始化
+	* 目录结构
+	* [目录说明](#目录说明)
 * [简易服务器](#简易服务器)
 * [创建应用](#创建应用)
 
 
-#### 安装Django
+### 安装Django
 1. 检测是否已安装django，在shell中输入python命令，进入python交互界面，尝试导入django模块
 ```
 >>> import django
@@ -31,7 +33,7 @@ pip3 install django
  
 ```
 
-#### 创建项目
+### 创建项目
 > 初始化设置，用一些自动生成的代码配置一个Django project，即一个Django项目实例需要的设置项集合，包括数据库配置、Django配置和应用程序配置
 
 ```
@@ -62,7 +64,7 @@ mysite/
 * mysite/urls.py：Django项目的URL声明，阅读[URL调度器](https://docs.djangoproject.com/zh-hans/2.0/topics/http/urls/)文档来获取更多关于 URL 的内容。
 * mysite/wsgi.py：作为你的项目运行在WSGI兼容的Web服务器上的入口。阅读[如何使用WSGI进行部署](https://docs.djangoproject.com/zh-hans/2.0/howto/deployment/wsgi/)了解更多。
 
-#### 简易服务器
+### 简易服务器
 让我们来确认一下你的 Django 项目是否真的创建成功了。如果你的当前目录不是外层的 mysite 目录的话，请切换到此目录，然后运行下面的命令：
 
 ```
