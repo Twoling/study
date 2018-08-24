@@ -168,10 +168,12 @@ urlpatterns = [
 
 用浏览器访问`http://ip:8000/polls`， 你应该能够看到'Hello Django. Hello Polls',这是你在index是视图定义的。
 
+----
+
+**path()参数：**
 > 函数`path()`具有四个参数，两个必须参数：`route`和`view`，两个可选参数：`kwargs`和`name`
 
-**path()参数：`route`**
-
+**route**
 route 是一个匹配URL的准则（类似正则表达式），当Django相应一个请求时，它会从urlpatterns的第一项开始，按顺序依次匹配列表中的项，至到找到匹配的项。
 这些准则不会匹配`GET`和`POST`参数或域名
 
