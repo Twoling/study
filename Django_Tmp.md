@@ -134,7 +134,9 @@ def index(request):
 这是Django中最简单的视图，如果想看见效果，我们需要将一个URL映射到它--这就是我们需要URLconf的原因。
 
 为了创建URLconf，请在polls目录里建一个urls.py的文件。
+
 `vim polls/urls.py`
+
 输入以下代码：
 ```
 from django.urls import path
