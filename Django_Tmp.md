@@ -100,6 +100,7 @@ Quit the server with CONTROL-C.
 在Django中，每一个应用都是一个Python包，并且遵循着相同的约定。Django自带一个工具，可以帮你生成应用的基础目录结构，这样你就能专心写代码，而不是创建目录了。
 
 > 项目 VS 应用
+
 > 项目和应用有啥区别？应用是一个专门做某件事的网络应用程序——比如博客系统，或者公共记录的数据库，或者简单的投票程序。项目则是一个网站使用的配置和应用的集合。项目可以包含很多个应用。应用可以被很多个项目使用
 
 你的应用可以存放在任何Python path中定义的路径。在这个教程中，我们将在你的manage.py同级目录下创建应用，这样它就可以作为顶级模块导入，而不是mysite的子模块
@@ -168,8 +169,9 @@ urlpatterns = [
 用浏览器访问`http://ip:8000/polls`， 你应该能够看到'Hello Django. Hello Polls',这是你在index是视图定义的。
 
 > 函数`path()`具有四个参数，两个必须参数：`route`和`view`，两个可选参数：`kwargs`和`name`
+
 > path()参数：`route`
-`route 是一个匹配URL的准则（类似正则表达式），当Django相应一个请求时，它会从urlpatterns的第一项开始，按顺序依次匹配列表中的项，至到找到匹配的项。`
+route 是一个匹配URL的准则（类似正则表达式），当Django相应一个请求时，它会从urlpatterns的第一项开始，按顺序依次匹配列表中的项，至到找到匹配的项。
 这些准则不会匹配`GET`和`POST`参数或域名，例如，URLconf在处理请求`http://www.example.com/myapp/`时，它会尝试匹配`myapp/`，处理请求`http://www.example.com/myapp/?page=3`时，也只会尝试匹配`myapp/`
 
 
