@@ -12,10 +12,6 @@
 	* 应用目录结构
 	* [编写第一个视图](#编写第一个视图)
 
-:heart_eyes: 
-
-:kissing_heart:
-
 
 ### 安装Django
 1. 检测是否已安装django，在shell中输入python命令，进入python交互界面，尝试导入django模块
