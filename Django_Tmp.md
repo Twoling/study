@@ -173,6 +173,8 @@ urlpatterns = [
 **path()参数：`route`**
 
 route 是一个匹配URL的准则（类似正则表达式），当Django相应一个请求时，它会从urlpatterns的第一项开始，按顺序依次匹配列表中的项，至到找到匹配的项。
-这些准则不会匹配`GET`和`POST`参数或域名，例如，URLconf在处理请求`http://www.example.com/myapp/`时，它会尝试匹配`myapp/`，处理请求`http://www.example.com/myapp/?page=3`时，也只会尝试匹配`myapp/`
+这些准则不会匹配`GET`和`POST`参数或域名
+
+例如，URLconf在处理请求`http://www.example.com/myapp/`时，它会尝试匹配`myapp/`，处理请求`http://www.example.com/myapp/?page=3`时，也只会尝试匹配`myapp/`
 
 
