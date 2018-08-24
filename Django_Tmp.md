@@ -66,7 +66,7 @@ python manage.py runserver 172.18.0.1:8080
 # 监听所有地址也可以使用以下格式：
 python manage.py runserver 0:8080
 
-# 默认Django只允许本地访问，如需远程访问，请设置Django的配置文件中ALLOWED_HOSTS变量的值
+# 默认Django只允许本地访问，如需远程访问，请设置Django的配置文件中`ALLOWED_HOSTS`变量的值
 # 例：
 vim mysite/settings.py
 ....
