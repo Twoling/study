@@ -11,7 +11,7 @@
 	* 创建应用
 	* 应用目录结构
 	* [编写第一个视图](#编写第一个视图)
-
+* [数据库配置](#数据库配置)
 
 ### 安装Django
 1. 检测是否已安装django，在shell中输入python命令，进入python交互界面，尝试导入django模块
@@ -209,7 +209,8 @@ route 是一个匹配URL的准则（类似正则表达式），当Django相应�
 
 
 ### 数据库配置
-
+mysite/settings.py 这是包含了Django项目设置的Python模块
+通常，这个配置文件使用
 
 
 
