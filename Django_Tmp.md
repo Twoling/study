@@ -12,7 +12,8 @@
 	* 应用目录结构
 	* [编写第一个视图](#编写第一个视图)
 
-* :heart_eyes: :kissing_heart:
+:heart_eyes: 
+:kissing_heart:
 
 
 ### 安装Django
