@@ -1,8 +1,9 @@
 # Django
-### [安装Django](#安装Django)
-### [创建目录](#创建目录)
-### [目录说明](#目录说明)
-### [简易服务器](#简易服务器)
+### [安装Django](####安装Django)
+### [创建目录](####创建目录)
+### [目录说明](####目录说明)
+### [简易服务器](####简易服务器)
+### [创建应用](####创建应用)
 
 
 #### 安装Django
@@ -51,7 +52,7 @@ mysite/
 
 ```
 
-###### 目录说明：
+#### 目录说明：
 * mysite：项目的容器，Django不关心它的名字，可以随意重命名成你想要的名字
 * manage.py：一个让可以用各种方式管理Django项目的命令行工具，你可以阅读[django-admin and manage.py](https://docs.djangoproject.com/zh-hans/2.1/ref/django-admin/)
 * mysite/目录包含你的项目，他是一个纯Python包。 他的名字就是当你引用它内部任何东西时需要用到的Python包名。（比如mysite.urls)
@@ -60,7 +61,7 @@ mysite/
 * mysite/urls.py：Django项目的URL声明，阅读[URL调度器](https://docs.djangoproject.com/zh-hans/2.0/topics/http/urls/)文档来获取更多关于 URL 的内容。
 * mysite/wsgi.py：作为你的项目运行在WSGI兼容的Web服务器上的入口。阅读[如何使用WSGI进行部署](https://docs.djangoproject.com/zh-hans/2.0/howto/deployment/wsgi/)了解更多。
 
-##### 简易服务器
+#### 简易服务器
 让我们来确认一下你的 Django 项目是否真的创建成功了。如果你的当前目录不是外层的 mysite 目录的话，请切换到此目录，然后运行下面的命令：
 
 ```
