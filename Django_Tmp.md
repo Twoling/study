@@ -12,6 +12,9 @@
 	* 应用目录结构
 	* [编写第一个视图](#编写第一个视图)
 * [数据库配置](#数据库配置)
+	* INSTALLED_APPS默认应用
+* [创建模型](#创建模型)
+
 
 ### 安装Django
 1. 检测是否已安装django，在shell中输入python命令，进入python交互界面，尝试导入django模块
@@ -225,6 +228,8 @@ mysite/settings.py 这是包含了Django项目设置的Python模块
 
 * 如果不使用SQLite，则必须添加一些额外设置，比如USER、PASSWORD、HOST等等，想了解更多数据库方面的内容，请看文档： [DATABASE](https://docs.djangoproject.com/zh-hans/2.0/ref/settings/#std:setting-DATABASES)
 
+**编辑 mysite/settings.py 文件前，先设置[TIME_ZONE](https://docs.djangoproject.com/zh-hans/2.0/ref/settings/#std:setting-TIME_ZONE)为你自己时区。**
+
 * 以下示例MySQL的配置：
 ```
 DATABASES = {
@@ -237,19 +242,107 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+
+# 创建数据库
+> CREATE DATABASE mydb;
+> GRANT ALL PRIVILEGES ON mydb.* TO 'myuser'@'HOST_IP' IDENTIFIED BY 'mypass';
+> FLUSH PRIVILEGES;
 ```
 **注: 如果使用MySQL作为后端数据，则需要安装DB API驱动程序mysqlclient，可使用pip进行安装`pip install mysqlclient`**
 
 
+> 此外，关注一下文件头部的[INSTALLED_APPS](https://docs.djangoproject.com/zh-hans/2.0/ref/settings/#std:setting-INSTALLED_APPS)设置项。这里包括了会在你项目中启用的所有Django应用。应用能在多个项目中使用，你也可以打包并且发布应用，让别人使用它
+> 通常，[INSTALLED_APPS](https://docs.djangoproject.com/zh-hans/2.0/ref/settings/#std:setting-INSTALLED_APPS)默认包括了以下Django的自带应用：
+* [django.contrib.admin](https://docs.djangoproject.com/zh-hans/2.0/ref/contrib/admin/#module-django.contrib.admin) -- 管理员站点
+* [django.contrib.auth](https://docs.djangoproject.com/zh-hans/2.0/topics/auth/#module-django.contrib.auth) -- 认证授权系统
+* [django.contrib.contenttypes](https://docs.djangoproject.com/zh-hans/2.0/ref/contrib/contenttypes/#module-django.contrib.contenttypes) -- 内容类型框架
+* [django.contrib.sessions](https://docs.djangoproject.com/zh-hans/2.0/topics/http/sessions/#module-django.contrib.sessions) -- 会话框架
+* [django.contrib.messages](https://docs.djangoproject.com/zh-hans/2.0/ref/contrib/messages/#module-django.contrib.messages) -- 消息框架
+* [django.contrib.staticfiles](https://docs.djangoproject.com/zh-hans/2.0/ref/contrib/staticfiles/#module-django.contrib.staticfiles) -- 管理静态文件的框架
+这些应用被默认启用是为了给常规项目提供方便
+
+------
+
+默认开启的某些应用需要至少一个数据表，所以，在使用他们之前需要在数据库中创建一些表，请执行以下命令：
+`python manage.py migrate`
+
+> 这个migrate命令检查INSTALLED_APPS这只，为其中的每个应用创建需要的数据表。
 
 
+### 创建模型
+在Django里写一个数据库驱动的Web应用的第一步是定义模型-也就是数据库结构设计和附加的其他元数据。
+
+> 模型是真实数据的简单明确的描述。它包含了储存的数据所必要的字段和行为。Django 遵循 DRY Principle 。它的目标是你只需要定义数据模型，然后其它的杂七杂八代码你都不用关心，它们会自动从模型生成。
+> 来介绍一下迁移 - 举个例子，不像 Ruby On Rails，Django 的迁移代码是由你的模型文件自动生成的，它本质上只是个历史记录，Django 可以用它来进行数据库的滚动更新，通过这种方式使其能够和当前的模型匹配。
+
+再这个简单的投票应用中，需要创建两个模型： 问题**Question**和选项**Choice**，**Question**模型包括问题描述和发布时间，**Choice**模型有两个字段，选项描述和当前投票数，选项描述和当前得票数，每个选项属于一个问题
+
+这些概念可以通过一个简单的Python类来描述，按照下面的例子来编辑**pools/models.py**文件：
+`# vim polls/models.py`
+
+```
 
 
+from django.db import models
 
 
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
 
 
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+```
 
+> 代码非常直白。每个模型被表示为 django.db.models.Model 类的子类。每个模型有一些类变量，它们都表示模型里的一个数据库字段。
+> 每个字段都是 Field 类的实例 - 比如，字符字段被表示为 CharField ，日期时间字段被表示为 DateTimeField 。这将告诉 Django 每个字段要处理的数据类型。
+> 每个 Field 类实例变量的名字（例如 question_text 或 pub_date ）也是字段名，所以最好使用对机器友好的格式。你将会在 Python 代码里使用它们，而数据库会将它们作为列名。
+> 你可以使用可选的选项来为 Field 定义一个人类可读的名字。这个功能在很多 Django 内部组成部分中都被使用了，而且作为文档的一部分。如果某个字段没有提供此名称，Django 将会使用对机器友好的名称，也就是变量名。在上面的例子中，我们只为 Question.pub_date 定义了对人类友好的名字。对于模型内的其它字段，它们的机器友好名也会被作为人类友好名使用。
+> 定义某些 Field 类实例需要参数。例如 CharField 需要一个 max_length 参数。这个参数的用处不止于用来定义数据库结构，也用于验证数据，我们稍后将会看到这方面的内容。
+> Field 也能够接收多个可选参数；在上面的例子中：我们将 votes 的 default 也就是默认值，设为0。
+> 注意在最后，我们使用 ForeignKey 定义了一个关系。这将告诉 Django，每个 Choice 对象都关联到一个 Question 对象。Django 支持所有常用的数据库关系：多对一、多对多和一对一。
 
+### 激活模型
+上面一小段用于创建模型的代码给了Django很多信息，通过这些信息，Django可以:
+* 为这个应用创建数据库scheme(生成CREATE TABLE语句)
+* 创建可以与**Question**和**Choice**对象进行交互的Python数据库API
+但是首先得把polls应用安装到我们的项目里。
 
+> Django应用是**"可插拔的"**的，你可以在多个项目中使用同一个应用，除此之外，你还可以发布自己的应用，因为它们并不会被绑定到当前安装的Django上。
 
+为了在我们的工程中包含这个应用，我们需要在配置类 INSTALLED_APPS 中添加设置。因为 PollsConfig 类写在文件 polls/apps.py 中，所以它的点式路径是 'polls.apps.PollsConfig'。在文件 mysite/settings.py 中 INSTALLED_APPS 子项添加点式路径后，它看起来像这样：
+
+`# vim mysite/settings.py`
+
+```
+INSTALLED_APPS = [
+    'polls.apps.PollsConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+```
+现在你的Django项目包含**polls**应用，运行以下命令：
+
+`# python manage.py makemigrations polls`
+
+你将会看到这样的输出
+```
+Migrations for 'polls':
+  polls/migrations/0001_initial.py:
+    - Create model Choice
+    - Create model Question
+    - Add field question to choice
+```
+命令**`makegrations`**让Django确定该如何修改数据库，使其能够存储于我们定义的新模型相关联的数据。输出表明Django创建了一个名为0001_initial.py的迁移文件，
+
+通过运行makemigrations命令，Django会检测你对模型文件的修改(在这种情况下，您已经创建了最新模型),并且您希望将更改存储为迁移
+
+迁移是Django对于模型定义(也就是你的数据库结构)的变化的存储形式，
