@@ -210,7 +210,35 @@ route 是一个匹配URL的准则（类似正则表达式），当Django相应�
 
 ### 数据库配置
 mysite/settings.py 这是包含了Django项目设置的Python模块
-通常，这个配置文件使用
+通常，这个配置文件使用SQLite作为默认数据库，如果你不熟悉数据库，或者只是想尝试下Django，这是最简单的选择，Python内置SQLite， 所以你无需安装额外的东西来使用它，当你开始一个真正的项目时，你可能更倾向使用一个更具有扩展性的数据库，例如PostgreSQL，避免中途切换数据库这个令人头疼的问题。
+
+如果你想使用其他数据库，你需要安装合适的[database bindings](https://docs.djangoproject.com/zh-hans/2.0/topics/install/#database-installation)，然后改变设置文件中DATABASE 'default'项目中的一些键值：
+
+* ENGINE：可选值有：
+`'django.db.backends.sqlite3'`
+`'django.db.backends.postgresql'`
+`'django.db.backends.mysql'`
+`'django.db.backends.oracle'`
+等等
+
+* NAME：数据库的名称，如果使用的是SQLite，数据库将是你电脑上的一个文件，在这种情况下，NAME应该是此文件的绝对路径，包括文件名，默认值：`os.path.join(BASE_DIDR, 'db.sqlite3')`将会把数据库文件存储在项目的根目录。
+
+* 如果不使用SQLite，则必须添加一些额外设置，比如USER、PASSWORD、HOST等等，想了解更多数据库方面的内容，请看文档： [DATABASE](https://docs.djangoproject.com/zh-hans/2.0/ref/settings/#std:setting-DATABASES)
+
+* 以下示例MySQL的配置：
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydb',
+        'USER': 'myuser',
+        'PASSWORD': 'mypass',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+```
+**注: 如果使用MySQL作为后端数据，则需要安装DB API驱动程序mysqlclient，可使用pip进行安装`pip install mysqlclient`**
 
 
 
