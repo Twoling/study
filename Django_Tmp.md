@@ -592,10 +592,10 @@ Django的管理界面默认是启用的，运行以下命令启动开发服务�
 `# python manage.py runserver`
 
 然后在浏览器上输入`http://Host_IP:8000/admin/`你就能看到管理员登陆界面
-![avatar](C:\Users\ybona\Documents\GitHub\study\Django_admin.png)
+![avatar](https://github.com/Twoling/study/blob/master/Django_admin.png)
 
 输入刚刚创建的用户名和密码，进入管理员页面
-![avatar](C:\Users\ybona\Documents\GitHub\study\Django_in_admin.png)
+![avatar](https://github.com/Twoling/study/blob/master/Django_in_admin.png)
 
 #### 向管理页面中加入应用
 告诉管理页面，**Question**对象需要被管理，打开**polls/admin.py**文件，按照以下内容编译
@@ -609,13 +609,13 @@ from .models import Question
 admin.site.register(Question)
 ```
 现在我们想管理页面注册了**Question**类，Django知道它应该被显示在索引页中：
-![avatar](C:\Users\ybona\Documents\GitHub\study\Django_Question.png)
+![avatar](https://github.com/Twoling/study/blob/master/Django_Question.png)
 
 点击**Question**，将看到**Question**对象的"change list"，这个界面会显示**Question**对象在数据库中所有的数据，你可以选择一个来修改，这里只有一个我们创建的**What's up?**问题
-![avatar](C:\Users\ybona\Documents\GitHub\study\Django_what.png)
+![avatar](https://github.com/Twoling/study/blob/master/Django_what.png)
 
 点击**What's up?**来编辑这个问题(Question)对象：
-![avatar](C:\Users\ybona\Documents\GitHub\study\Django_change_question.png)
+![avatar](https://github.com/Twoling/study/blob/master/Django_change_question.png)
 
 **注意事项：**
 * 这个表单是从Question模型中自动生成的
