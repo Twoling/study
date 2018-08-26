@@ -16,7 +16,7 @@
 * [创建模型](#创建模型)
     * 改变模型步骤
 * [初试API](#初试API)
-
+    * [database api](#database api)
 * [介绍Django管理页面](#介绍Django管理页面)
     * [创建管理员账号](#创建管理员账号)
     * [启动开发服务器](#启动开发服务器)
@@ -413,6 +413,7 @@ Running migrations:
 我们使用这个命令而不是简单的使用python，是因为`manage.py`会设置`DJANGO_SETTINGS_MODULE`环境变量，这个变量会让Django根据`mysite/settings.py`文件来设置Python包的导入路径
 
 当你成功进入命令行后，来试试[database API](https://docs.djangoproject.com/zh-hans/2.0/topics/db/queries/)吧:
+#### database api
 ```
 >>> from polls.models import Choice, Question  # Import the model classes we just wrote.
 
