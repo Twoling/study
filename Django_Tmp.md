@@ -16,7 +16,7 @@
 * [创建模型](#创建模型)
     * 改变模型步骤
 * [初试API](#初试API)
-* [介绍Django管理页面](#介绍Django管理界面)
+* [介绍Django管理页面](#介绍Django管理页面)
     * [创建管理员账号](#创建管理员账号)
     * [启动开发服务器](#启动开发服务器)
 
@@ -566,7 +566,7 @@ True
 阅读[访问关系对象](https://docs.djangoproject.com/zh-hans/2.0/ref/models/relations/)文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见[查找字段](https://docs.djangoproject.com/zh-hans/2.0/topics/db/queries/#field-lookups-intro)文档。数据库 API 的所有细节可以在[数据库 API](https://docs.djangoproject.com/zh-hans/2.0/topics/db/queries/)参考 文档中找到。
 
 ### 介绍Django管理页面
-* 创建一个管理员账号
-* 启动开发服务器
+#### 创建一个管理员账号
+#### 启动开发服务器
 
 
