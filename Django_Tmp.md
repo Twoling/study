@@ -345,7 +345,7 @@ Migrations for 'polls':
 
 迁移是Django对于模型定义(也就是你的数据库结构)的变化的存储形式，它们其实也只是磁盘上的一些文件，你也可以阅读一下模型的迁移数据，它被存储在polls/migrations/0001_initial.py文件里，你并不需要每次都去阅读迁移文件，但迁移文件被设计成可读的形式，这是为了方便你去手动修改他们
 
-Django有一个自动执行数据库迁移并同步管理你的数据库结构的命令，这个命令是**[migrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-migrate)**
+Django有一个自动执行数据库迁移并同步管理你的数据库结构的命令，这个命令是[migrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-migrate)
 
 可以执行以下命令来查看在迁移过程中会执行那些SQL语句，[sqlmigrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-sqlmigrate)命令接受一个迁移的名称呢，然后返回对应的SQL:
 `# python manage.py sqlmigrate polls 0001`
@@ -373,4 +373,5 @@ COMMIT;
 * 输出的内容和你使用的数据库有关，上面的输出示例是用的是MySQL
 * 数据库表明是由应用名(polls)和模型名的小写形式(question和choice)连接而来。(如果需要，你可以自定义此行为)
 * 主键(IDs)会被自动创建(当然，也可以自定义)
-* 默认的，Django会在外键字段名后追加字符串"_id"
+* 默认的，Django会在外键字段名后追加字符串"\_id"(同样，也可以自定义)
+* 外键关系又FOREIGN KEY生成，
