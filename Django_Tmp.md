@@ -343,6 +343,34 @@ Migrations for 'polls':
 ```
 命令**`makegrations`**让Django确定该如何修改数据库，使其能够存储于我们定义的新模型相关联的数据。输出表明Django创建了一个名为0001_initial.py的迁移文件，
 
-通过运行makemigrations命令，Django会检测你对模型文件的修改(在这种情况下，您已经创建了最新模型),并且您希望将更改存储为迁移
+迁移是Django对于模型定义(也就是你的数据库结构)的变化的存储形式，它们其实也只是磁盘上的一些文件，你也可以阅读一下模型的迁移数据，它被存储在polls/migrations/0001_initial.py文件里，你并不需要每次都去阅读迁移文件，但迁移文件被设计成可读的形式，这是为了方便你去手动修改他们
 
-迁移是Django对于模型定义(也就是你的数据库结构)的变化的存储形式，
+Django有一个自动执行数据库迁移并同步管理你的数据库结构的命令，这个命令是**[migrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-migrate)**
+
+可以执行以下命令来查看在迁移过程中会执行那些SQL语句，[sqlmigrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-sqlmigrate)命令接受一个迁移的名称呢，然后返回对应的SQL:
+`# python manage.py sqlmigrate polls 0001`
+
+你将会看到类似下面的输出：
+```
+BEGIN;
+--
+-- Create model Choice
+--
+CREATE TABLE `polls_choice` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `choice_text` varchar(200) NOT NULL, `votes` integer NOT NULL);
+--
+-- Create model Question
+--
+CREATE TABLE `polls_question` (`id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY, `question_text` varchar(200) NOT NULL, `pub_date` datetime NOT NULL);
+--
+-- Add field question to choice
+--
+ALTER TABLE `polls_choice` ADD COLUMN `question_id` integer NOT NULL;
+ALTER TABLE `polls_choice` ADD CONSTRAINT `polls_choice_question_id_c5b4b260_fk_polls_question_id` FOREIGN KEY (`question_id`) REFERENCES `polls_question` (`id`);
+COMMIT;
+```
+
+**请注意以下几点**
+* 输出的内容和你使用的数据库有关，上面的输出示例是用的是MySQL
+* 数据库表明是由应用名(polls)和模型名的小写形式(question和choice)连接而来。(如果需要，你可以自定义此行为)
+* 主键(IDs)会被自动创建(当然，也可以自定义)
+* 默认的，Django会在外键字段名后追加字符串"_id"
