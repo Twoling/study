@@ -16,7 +16,7 @@
 * [创建模型](#创建模型)
     * 改变模型步骤
 * [初试API](#初试API)
-    * [database api](#database api)
+    * database api
 * [介绍Django管理页面](#介绍Django管理页面)
     * [创建管理员账号](#创建管理员账号)
     * [启动开发服务器](#启动开发服务器)
