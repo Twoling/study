@@ -20,6 +20,8 @@
 * [管理页面](#管理页面)
     * [创建管理员账号](#创建管理员账号)
     * [启动开发服务器](#启动开发服务器)
+    * [向管理页面中加入投票应用](#向管理页面中加入投票应用)
+* [视图](#视图)
 
 ### 安装Django
 1. 检测是否已安装django，在shell中输入python命令，进入python交互界面，尝试导入django模块
@@ -569,6 +571,61 @@ True
 
 ### 管理页面
 #### 创建管理员账号
+首先，我们得创建一个能登录管理页面的用户，请运行以下命令
+`python manage.py createsuperuser`
+
+输入你想要使用的用户名：
+`Username: admin`
+
+然后输入你想要使用的邮件地址：
+`Email address: admin@localhost.com`
+
+最后一步输入密码：
+```
+Password: *********
+Password (again): ********
+Superuser created successfully
+```
+
 #### 启动开发服务器
+Django的管理界面默认是启用的，运行以下命令启动开发服务器
+`# python manage.py runserver`
 
+然后在浏览器上输入`http://Host_IP:8000/admin/`你就能看到管理员登陆界面
+![avatar](C:\Users\ybona\Documents\GitHub\study\Django_admin.png)
 
+输入刚刚创建的用户名和密码，进入管理员页面
+![avatar](C:\Users\ybona\Documents\GitHub\study\Django_in_admin.png)
+
+#### 向管理页面中加入应用
+告诉管理页面，**Question**对象需要被管理，打开**polls/admin.py**文件，按照以下内容编译
+`# vim polls/admin.py`
+
+```
+from django.contrib import admin
+
+from .models import Question
+
+admin.site.register(Question)
+```
+现在我们想管理页面注册了**Question**类，Django知道它应该被显示在索引页中：
+![avatar](C:\Users\ybona\Documents\GitHub\study\Django_Question.png)
+
+点击**Question**，将看到**Question**对象的"change list"，这个界面会显示**Question**对象在数据库中所有的数据，你可以选择一个来修改，这里只有一个我们创建的**What's up?**问题
+![avatar](C:\Users\ybona\Documents\GitHub\study\Django_what.png)
+
+点击**What's up?**来编辑这个问题(Question)对象：
+![avatar](C:\Users\ybona\Documents\GitHub\study\Django_change_question.png)
+
+**注意事项：**
+* 这个表单是从Question模型中自动生成的
+* 不同的字段类型(日期时间字段[DateTimeField](https://docs.djangoproject.com/zh-hans/2.0/ref/models/fields/#django.db.models.DateTimeField)、[字符字段](https://docs.djangoproject.com/zh-hans/2.0/ref/models/fields/#django.db.models.CharField))会生成对应的HTML输入控件，每个类型的字段都知道他们该如何在管理页面里显示自己
+* 每个日期时间字段[DateTimeField](https://docs.djangoproject.com/zh-hans/2.0/ref/models/fields/#django.db.models.DateTimeField)都有JavaScript写的快捷按钮，日期又转到今天(Today)的快捷按钮和一个弹出式日历界面，时间有设为现在(Now)的快捷按钮和一个列出常用时间的方便的弹出式列表
+
+页面的底部提供了几个选项：
+* Sava 保存更改，然后返回对象列表
+* Sava and continue editing 保存更改，然后重新载入当前对象的修改页面
+* Sava and add another 保存更改，然后添加一个新的空对象并载入修改界面
+* Delete 显示一个确认删除页面
+
+### 视图
