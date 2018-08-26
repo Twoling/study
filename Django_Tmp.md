@@ -14,7 +14,11 @@
 * [数据库配置](#数据库配置)
 	* INSTALLED_APPS默认应用
 * [创建模型](#创建模型)
-
+    * 改变模型步骤
+* [初试API](#初试API)
+* [介绍Django管理页面](#介绍Django管理界面)
+    * [创建管理员账号](#创建管理员账号)
+    * [启动开发服务器](#启动开发服务器)
 
 ### 安装Django
 1. 检测是否已安装django，在shell中输入python命令，进入python交互界面，尝试导入django模块
@@ -374,4 +378,195 @@ COMMIT;
 * 数据库表明是由应用名(polls)和模型名的小写形式(question和choice)连接而来。(如果需要，你可以自定义此行为)
 * 主键(IDs)会被自动创建(当然，也可以自定义)
 * 默认的，Django会在外键字段名后追加字符串"\_id"(同样，也可以自定义)
-* 外键关系又FOREIGN KEY生成，
+* 外键关系由FOREIGN KEY生成。
+* 生成的SQL语句是为你所用的数据库定制的，所以那些和数据库有关的字段类型，比如auto_increment(MySQL)、serial(PostgreSQL)和integer primary key autoincrement(SQLite)， Django会帮你自动处理。
+* 这个**sqlmigrations**命令并没有真正在你的数据库中执行迁移，它只是把命令输出到屏幕上，让你看看Django认为需要执行那些SQL语句
+
+运行[migrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-migrate)命令，在数据库中创建定义的模型的数据表：
+`# python manage.py migrate`
+
+```
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, polls, sessions
+Running migrations:
+  Rendering model states... DONE
+  Applying polls.0001_initial... OK
+```
+
+这个[migrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-migrate)命令选中所有还没有执行过的迁移(Django通过在数据库中创建一个特殊的表**django_migrations**来跟踪执行过那些迁移)并应用在数据库上，也就是将你对模型的更改同步到数据库结构上
+
+迁移是非常强大的功能，它能让你在开发过程中持续的改变数据库结构而不需要重新删除和创建表，它专注于使数据库平滑升级而不丢失数据
+* 改变模型步骤：
+    1. 编辑**models.py**文件，改变模型
+    2. 运行`python manage.py makemigrations`为模型的改变生成迁移文件
+    3. 运行`python manage.py migrate`来应用数据库迁移
+
+数据库迁移被分解生成和应用两个命令是为了让你能够在代码控制系统上提交迁移数据并使其能在多个应用里使用；这不仅仅会让开发更加简单，也给别的开发者和生产环境中的使用带来方便。
+
+通过阅读[Django后台文档](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/)，你可以获取关于manage.py工具的更多信息
+
+### 初试API
+进入交互式Python命令行，尝试以下Django为你创建的各种API，通过以下命令打开Python命令行：
+`python manage.py shell`
+
+我们使用这个命令而不是简单的使用python，是因为`manage.py`会设置`DJANGO_SETTINGS_MODULE`环境变量，这个变量会让Django根据`mysite/settings.py`文件来设置Python包的导入路径
+
+当你成功进入命令行后，来试试[database API](https://docs.djangoproject.com/zh-hans/2.0/topics/db/queries/)吧:
+```
+>>> from polls.models import Choice, Question  # Import the model classes we just wrote.
+
+# No questions are in the system yet.
+>>> Question.objects.all()
+<QuerySet []>
+
+# Create a new Question.
+# Support for time zones is enabled in the default settings file, so
+# Django expects a datetime with tzinfo for pub_date. Use timezone.now()
+# instead of datetime.datetime.now() and it will do the right thing.
+>>> from django.utils import timezone
+>>> q = Question(question_text="What's new?", pub_date=timezone.now())
+
+# Save the object into the database. You have to call save() explicitly.
+>>> q.save()
+
+# Now it has an ID.
+>>> q.id
+1
+
+# Access model field values via Python attributes.
+>>> q.question_text
+"What's new?"
+>>> q.pub_date
+datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
+
+# Change values by changing the attributes, then calling save().
+>>> q.question_text = "What's up?"
+>>> q.save()
+
+# objects.all() displays all the questions in the database.
+>>> Question.objects.all()
+<QuerySet [<Question: Question object (1)>]>
+```
+
+等等。**<Question: Question object (1)>**对于我们了解这个对象的细节没什么帮助。让我们通过编辑 Question 模型的代码（位于**polls/models.py**中）来修复这个问题。给**Question**和**Choice**增加[__str__()](https://docs.djangoproject.com/zh-hans/2.0/ref/models/instances/#django.db.models.Model.__str__)方法。
+
+`# vim polls/models.py`
+```
+from django.db import models
+
+class Question(models.Model):
+    # ...
+    def __str__(self):
+        return self.question_text
+
+class Choice(models.Model):
+    # ...
+    def __str__(self):
+        return self.choice_text
+```
+
+给模型增加[__str__()](https://docs.djangoproject.com/zh-hans/2.0/ref/models/instances/#django.db.models.Model.__str__)方法是很重要的，这不仅仅能给你在命令行里使用带来方便，Django 自动生成的 admin 里也使用这个方法来表示对象。
+
+注意：这些都是常规的 Python方法。让我们添加一个自定义的方法，这只是为了演示：
+`vim polls/models.py`
+```
+import datetime
+
+from django.db import models
+from django.utils import timezone
+
+
+class Question(models.Model):
+    # ...
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+```
+
+新加入的 import datetime 和 from django.utils import timezone 分别导入了 Python 的标准[datetime](https://docs.python.org/3/library/datetime.html#module-datetime)模块和 Django 中和时区相关的[django.utils.timezone](https://docs.djangoproject.com/zh-hans/2.0/ref/utils/#module-django.utils.timezone)工具模块。如果你不太熟悉 Python 中的时区处理，看看[时区支持文档](https://docs.djangoproject.com/zh-hans/2.0/topics/i18n/timezones/)吧。
+
+保存文件然后通过 python manage.py shell 命令再次打开 Python 交互式命令行：
+```
+>>> from polls.models import Choice, Question
+
+# Make sure our __str__() addition worked.
+>>> Question.objects.all()
+<QuerySet [<Question: What's up?>]>
+
+# Django provides a rich database lookup API that's entirely driven by
+# keyword arguments.
+>>> Question.objects.filter(id=1)
+<QuerySet [<Question: What's up?>]>
+>>> Question.objects.filter(question_text__startswith='What')
+<QuerySet [<Question: What's up?>]>
+
+# Get the question that was published this year.
+>>> from django.utils import timezone
+>>> current_year = timezone.now().year
+>>> Question.objects.get(pub_date__year=current_year)
+<Question: What's up?>
+
+# Request an ID that doesn't exist, this will raise an exception.
+>>> Question.objects.get(id=2)
+Traceback (most recent call last):
+    ...
+DoesNotExist: Question matching query does not exist.
+
+# Lookup by a primary key is the most common case, so Django provides a
+# shortcut for primary-key exact lookups.
+# The following is identical to Question.objects.get(id=1).
+>>> Question.objects.get(pk=1)
+<Question: What's up?>
+
+# Make sure our custom method worked.
+>>> q = Question.objects.get(pk=1)
+>>> q.was_published_recently()
+True
+
+# Give the Question a couple of Choices. The create call constructs a new
+# Choice object, does the INSERT statement, adds the choice to the set
+# of available choices and returns the new Choice object. Django creates
+# a set to hold the "other side" of a ForeignKey relation
+# (e.g. a question's choice) which can be accessed via the API.
+>>> q = Question.objects.get(pk=1)
+
+# Display any choices from the related object set -- none so far.
+>>> q.choice_set.all()
+<QuerySet []>
+
+# Create three choices.
+>>> q.choice_set.create(choice_text='Not much', votes=0)
+<Choice: Not much>
+>>> q.choice_set.create(choice_text='The sky', votes=0)
+<Choice: The sky>
+>>> c = q.choice_set.create(choice_text='Just hacking again', votes=0)
+
+# Choice objects have API access to their related Question objects.
+>>> c.question
+<Question: What's up?>
+
+# And vice versa: Question objects get access to Choice objects.
+>>> q.choice_set.all()
+<QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+>>> q.choice_set.count()
+3
+
+# The API automatically follows relationships as far as you need.
+# Use double underscores to separate relationships.
+# This works as many levels deep as you want; there's no limit.
+# Find all Choices for any question whose pub_date is in this year
+# (reusing the 'current_year' variable we created above).
+>>> Choice.objects.filter(question__pub_date__year=current_year)
+<QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+
+# Let's delete one of the choices. Use delete() for that.
+>>> c = q.choice_set.filter(choice_text__startswith='Just hacking')
+>>> c.delete()
+```
+
+阅读[访问关系对象](https://docs.djangoproject.com/zh-hans/2.0/ref/models/relations/)文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见[查找字段](https://docs.djangoproject.com/zh-hans/2.0/topics/db/queries/#field-lookups-intro)文档。数据库 API 的所有细节可以在[数据库 API](https://docs.djangoproject.com/zh-hans/2.0/topics/db/queries/)参考 文档中找到。
+
+### 介绍Django管理页面
+* 创建一个管理员账号
+* 启动开发服务器
+
+
