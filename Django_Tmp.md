@@ -73,7 +73,7 @@ mysite/
 * mysite：项目的容器，Django不关心它的名字，可以随意重命名成你想要的名字
 * manage.py：一个让可以用各种方式管理Django项目的命令行工具，你可以阅读[django-admin and manage.py](https://docs.djangoproject.com/zh-hans/2.1/ref/django-admin/)
 * mysite/目录包含你的项目，他是一个纯Python包。 他的名字就是当你引用它内部任何东西时需要用到的Python包名。（比如mysite.urls)
-* mysite/\__init__.py: 一个空文件，告诉Python这个目录应该被认为是一个Python包。
+* mysite/\_\_init\_\_.py: 一个空文件，告诉Python这个目录应该被认为是一个Python包。
 * mysite/settings.py：Django项目的配置文件，如果你想知道这个文件是如何工作的，请查看[Django setting](https://docs.djangoproject.com/zh-hans/2.0/topics/settings/)了解细节。
 * mysite/urls.py：Django项目的URL声明，阅读[URL调度器](https://docs.djangoproject.com/zh-hans/2.0/topics/http/urls/)文档来获取更多关于 URL 的内容。
 * mysite/wsgi.py：作为你的项目运行在WSGI兼容的Web服务器上的入口。阅读[如何使用WSGI进行部署](https://docs.djangoproject.com/zh-hans/2.0/howto/deployment/wsgi/)了解更多。
@@ -319,7 +319,7 @@ class Choice(models.Model):
 * 创建可以与**Question**和**Choice**对象进行交互的Python数据库API
 但是首先得把polls应用安装到我们的项目里。
 
-> Django应用是**"可插拔的"**的，你可以在多个项目中使用同一个应用，除此之外，你还可以发布自己的应用，因为它们并不会被绑定到当前安装的Django上。
+> Django应用是**"可插拔的"** 的，你可以在多个项目中使用同一个应用，除此之外，你还可以发布自己的应用，因为它们并不会被绑定到当前安装的Django上。
 
 为了在我们的工程中包含这个应用，我们需要在配置类 INSTALLED_APPS 中添加设置。因为 PollsConfig 类写在文件 polls/apps.py 中，所以它的点式路径是 'polls.apps.PollsConfig'。在文件 mysite/settings.py 中 INSTALLED_APPS 子项添加点式路径后，它看起来像这样：
 
@@ -348,7 +348,7 @@ Migrations for 'polls':
     - Create model Question
     - Add field question to choice
 ```
-命令**`makegrations`**让Django确定该如何修改数据库，使其能够存储于我们定义的新模型相关联的数据。输出表明Django创建了一个名为0001_initial.py的迁移文件，
+命令**`makegrations`** 让Django确定该如何修改数据库，使其能够存储于我们定义的新模型相关联的数据。输出表明Django创建了一个名为0001_initial.py的迁移文件，
 
 迁移是Django对于模型定义(也就是你的数据库结构)的变化的存储形式，它们其实也只是磁盘上的一些文件，你也可以阅读一下模型的迁移数据，它被存储在polls/migrations/0001_initial.py文件里，你并不需要每次都去阅读迁移文件，但迁移文件被设计成可读的形式，这是为了方便你去手动修改他们
 
@@ -452,7 +452,7 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 <QuerySet [<Question: Question object (1)>]>
 ```
 
-等等。**<Question: Question object (1)>**对于我们了解这个对象的细节没什么帮助。让我们通过编辑 Question 模型的代码（位于**polls/models.py**中）来修复这个问题。给**Question**和**Choice**增加[__str__()](https://docs.djangoproject.com/zh-hans/2.0/ref/models/instances/#django.db.models.Model.__str__)方法。
+等等。**<Question: Question object (1)>** 对于我们了解这个对象的细节没什么帮助。让我们通过编辑 Question 模型的代码（位于**polls/models.py**中）来修复这个问题。给 **Question** 和 **Choice** 增加[__str__()](https://docs.djangoproject.com/zh-hans/2.0/ref/models/instances/#django.db.models.Model.__str__)方法。
 
 `# vim polls/models.py`
 ```
@@ -611,10 +611,10 @@ admin.site.register(Question)
 现在我们想管理页面注册了**Question**类，Django知道它应该被显示在索引页中：
 ![avatar](https://github.com/Twoling/study/blob/master/Django_Question.png)
 
-点击**Question**，将看到**Question**对象的"change list"，这个界面会显示**Question**对象在数据库中所有的数据，你可以选择一个来修改，这里只有一个我们创建的**What's up?**问题
+点击**Question**，将看到**Question**对象的"change list"，这个界面会显示**Question**对象在数据库中所有的数据，你可以选择一个来修改，这里只有一个我们创建的 **What's up?** 问题
 ![avatar](https://github.com/Twoling/study/blob/master/Django_what.png)
 
-点击**What's up?**来编辑这个问题(Question)对象：
+点击 **What's up?** 来编辑这个问题(Question)对象：
 ![avatar](https://github.com/Twoling/study/blob/master/Django_change_question.png)
 
 **注意事项：**
