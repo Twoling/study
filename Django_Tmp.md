@@ -15,7 +15,7 @@
 	* INSTALLED_APPS默认应用
 * [创建模型](#创建模型)
     * 改变模型步骤
-* [API](#API)
+* [尝试使用API](#尝试使用API)
     * database api
 * [管理页面](#管理页面)
     * [创建管理员账号](#创建管理员账号)
@@ -406,7 +406,7 @@ Running migrations:
 
 通过阅读[Django后台文档](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/)，你可以获取关于manage.py工具的更多信息
 
-### 初试API
+### 尝试使用API
 进入交互式Python命令行，尝试以下Django为你创建的各种API，通过以下命令打开Python命令行：
 `python manage.py shell`
 
