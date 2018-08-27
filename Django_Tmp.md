@@ -150,6 +150,7 @@ polls/
 ```
 
 #### 编写第一个视图
+
 `vim polls/views.py`
 
 ```
@@ -191,6 +192,7 @@ urlpatterns = [
 > 我们设计 include() 的理念是使其可以即插即用。因为投票应用有它自己的 URLconf( polls/urls.py )，他们能够被放在 "/polls/" ， "/fun_polls/" ，"/content/polls/"，或者其他任何路径下，这个应用都能够正常工作。
 
 把index视图添加进了URLconf，可以验证是否正常工作，运行以下命令：
+
 `python manage.py runserver`
 
 用浏览器访问`http://ip:8000/polls`， 你应该能够看到'Hello Django. Hello Polls',这是你在index是视图定义的。
@@ -272,6 +274,7 @@ DATABASES = {
 ------
 
 默认开启的某些应用需要至少一个数据表，所以，在使用他们之前需要在数据库中创建一些表，请执行以下命令：
+
 `python manage.py migrate`
 
 > 这个migrate命令检查INSTALLED_APPS这只，为其中的每个应用创建需要的数据表。
@@ -286,6 +289,7 @@ DATABASES = {
 再这个简单的投票应用中，需要创建两个模型： 问题**Question**和选项**Choice**，**Question**模型包括问题描述和发布时间，**Choice**模型有两个字段，选项描述和当前投票数，选项描述和当前得票数，每个选项属于一个问题
 
 这些概念可以通过一个简单的Python类来描述，按照下面的例子来编辑**pools/models.py**文件：
+
 `# vim polls/models.py`
 
 ```
@@ -355,6 +359,7 @@ Migrations for 'polls':
 Django有一个自动执行数据库迁移并同步管理你的数据库结构的命令，这个命令是[migrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-migrate)
 
 可以执行以下命令来查看在迁移过程中会执行那些SQL语句，[sqlmigrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-sqlmigrate)命令接受一个迁移的名称呢，然后返回对应的SQL:
+
 `# python manage.py sqlmigrate polls 0001`
 
 你将会看到类似下面的输出：
@@ -386,6 +391,7 @@ COMMIT;
 * 这个**sqlmigrations**命令并没有真正在你的数据库中执行迁移，它只是把命令输出到屏幕上，让你看看Django认为需要执行那些SQL语句
 
 运行[migrate](https://docs.djangoproject.com/zh-hans/2.0/ref/django-admin/#django-admin-migrate)命令，在数据库中创建定义的模型的数据表：
+
 `# python manage.py migrate`
 
 ```
@@ -410,6 +416,7 @@ Running migrations:
 
 ### 尝试使用API
 进入交互式Python命令行，尝试以下Django为你创建的各种API，通过以下命令打开Python命令行：
+
 `python manage.py shell`
 
 我们使用这个命令而不是简单的使用python，是因为`manage.py`会设置`DJANGO_SETTINGS_MODULE`环境变量，这个变量会让Django根据`mysite/settings.py`文件来设置Python包的导入路径
