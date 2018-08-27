@@ -352,7 +352,7 @@ Migrations for 'polls':
     - Create model Question
     - Add field question to choice
 ```
-命令**`makegrations`** 让Django确定该如何修改数据库，使其能够存储于我们定义的新模型相关联的数据。输出表明Django创建了一个名为0001_initial.py的迁移文件，
+命令**makegrations** 让Django确定该如何修改数据库，使其能够存储于我们定义的新模型相关联的数据。输出表明Django创建了一个名为0001_initial.py的迁移文件，
 
 迁移是Django对于模型定义(也就是你的数据库结构)的变化的存储形式，它们其实也只是磁盘上的一些文件，你也可以阅读一下模型的迁移数据，它被存储在polls/migrations/0001_initial.py文件里，你并不需要每次都去阅读迁移文件，但迁移文件被设计成可读的形式，这是为了方便你去手动修改他们
 
