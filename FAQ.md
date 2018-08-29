@@ -28,3 +28,10 @@ PWOpen: No such file or directory
 vim /etc/ssh/sshd_config
 UsePAM off -->   UsePAM on
 ```
+
+
+* 安装Python3.7是报错
+`ModuleNotFoundError: No module named '_ctypes'`
+
+* 解决方式
+`安装 libffi-devel 包后重新编译即可`
