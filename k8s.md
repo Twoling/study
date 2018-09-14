@@ -65,16 +65,8 @@
 	  	Always：总是去互联网上下载
 	  	Never：永远不下载
 	  	IfNotPresent：如果本地存在则是用本地，如果没有，则去公用仓库下载
-	修改镜像中的默认应用：
+	* 修改镜像中的默认应用：
 		command args
-	* 获取容器应用日志：
-		kubectl logs pod [-c application]
-
-	* 标签：
-		* key=value
-			key: 字母、数字、下划线
-			value：可以为空，只能字母或数字开头及结尾
-
 
 | __Image EntryPoint__ | __image Cmd__ | __Container command__ | __Container args__ | __Command run__ |
 | :------------------: | :-----------: | :-------------------: | :----------------: | :-------------: |
@@ -84,3 +76,19 @@
 | [/ep-1]              | [foor bar]    |  [/ep-2]              | [zoo boo]          | [ep-2 zoo boo]  |
 
 
+-
+	* 获取容器应用日志：
+		kubectl logs pod [-c application]
+
+	* 标签：
+		* key=value
+			key: 字母、数字、下划线
+			value：可以为空，只能字母或数字开头及结尾
+
+	* 标签选择器：
+		* 等值关系：
+			=
+			==
+			!=
+
+		* 集合关系
