@@ -88,4 +88,17 @@
 * 标签选择器：
 	* 等值关系：
 		=、==、!=
-	* 集合关系
+	* 集合关系：
+		KEY in (VALUE1, VALUE2...)
+		KEY notin (VALUE1, VALUE2...)
+		KEY
+		!KEY
+	* 许多资源支持内嵌字段定义其使用的标签选择器
+		matchLabels：直接给定简直
+		matchExpressions：基于给定的表达式来定义使用标签选择器，{key:"", operator:"OPERATOR", value: [va1, va2,...]}
+		操作符：
+			In, NotIn: values字段的值必须为非空列表
+			Exists, NotExists：values字段的值必须为空列表	
+
+
+
