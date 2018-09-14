@@ -76,6 +76,7 @@
 | [/ep-1]              | [foor bar]    |  [/ep-2]              | [zoo boo]          | [ep-2 zoo boo]  |
 ---
 
+
 	* 获取容器应用日志：
 		kubectl logs pod [-c application]
 
