@@ -69,17 +69,9 @@
 
 | __Image EntryPoint__ | __image Cmd__ | __Container command__ | __Container args__ | __Command run__ |
 | :------------------: | :-----------: | :-------------------: | :----------------: | :-------------: |
-| [/ep-1]              | [foor bar]    |  <not set>            |  <not set>         | [ep-1 foo bar]  |
-| [/ep-1]              | [foor bar]    |  [/ep-2]              |  <not set>         | [ep-1]          |
-| [/ep-1]              | [foor bar]    |  <not set>            | [zoo boo]          | [ep-1 zoo boo]  |
+| [/ep-1]              | [foor bar]    |  `<not set>`          | `<not set>`        | [ep-1 foo bar]  |
+| [/ep-1]              | [foor bar]    |  [/ep-2]              | `<not set>`        | [ep-1]          |
+| [/ep-1]              | [foor bar]    | `<not set>`           | [zoo boo]          | [ep-1 zoo boo]  |
 | [/ep-1]              | [foor bar]    |  [/ep-2]              | [zoo boo]          | [ep-1 zoo boo]  |
-
-
-
-
-
-
-
-| :------------------: | :-----------: | :-------------------: | :----------------: | :-------------: |
 
 
