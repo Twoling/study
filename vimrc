@@ -7,3 +7,6 @@ set expandtab
 set ts=4
 set noexpandtab
 %retab!
+
+* 竖屏同是滚动
+set scroll-binding
