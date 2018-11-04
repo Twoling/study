@@ -132,6 +132,10 @@ mysql -uroot -p
 > CREATE DATABASE jumpserver DEFAULT CHARSET 'utf8';
 > GRANT ALL ON jumpserver.* TO 'jumpserver'@'127.0.0.1' IDENTIFIED BY 'jumppass';
 > FLUSH PRIVILEGES;
+
+# 初始化数据库：
+$ cd /opt/jumpserver/utils/
+$ bash make_migrations.sh
 ```
 
 5. 修改jumpserver配置并运行
