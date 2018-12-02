@@ -17,6 +17,7 @@ with open(filename, 'w') as f_obj:
 ```
 
 * json.load():
+
 栗子:
 
 ```
