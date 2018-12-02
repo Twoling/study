@@ -2,7 +2,7 @@
 > JSON（JavaScript Object Notation）格式最初是为JavaScript开发的，但随后成了一种格式，被包括Python在内的众多语言采用
 
 * json.dump()
-	* json.dump()接受两个实参： 要存储的数据以及可用于存储数据的文件对象
+	* 接受两个实参： 要存储的数据以及可用于存储数据的文件对象
 
 栗子：
 
