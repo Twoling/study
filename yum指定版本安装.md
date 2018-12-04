@@ -6,4 +6,4 @@
 ~]# yum --showduplicates list  docker-ce
 ```
 
-![所有版本](./docker-versons.jpg)
+![所有版本](./docker-versions.jpg)
