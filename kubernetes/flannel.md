@@ -18,8 +18,10 @@
 ```flow
 st=>start: Start
 e=>end: End
-op1=>operation: My Operation
-sub1=>subroutine: My Subroutine
+op=>operation: My Operation
 cond=>condition: Yes or No?
-io=>inputoutput: catch something...
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
 ```
