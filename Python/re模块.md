@@ -27,7 +27,7 @@
         <td>描述</td> 
    </tr>
    <tr>
-        <td colspan="2"><center>仅仅是re模块函数</td></center>
+        <center><td colspan="2">仅仅是re模块函数</td></center>
    </tr>
    <tr>
         <td>compile(pattern, flags = 0)</td> 
