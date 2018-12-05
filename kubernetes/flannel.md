@@ -1,7 +1,9 @@
 ### CNI(Container Network Interface)
 > CNI最早是由CoreOS发起的容器网络规范，是Kubernetes网络插件的基础，其基本的思想为：Container Runtime在创建时，先创建好Network Namespace， 然后调用CNI插件为这个Network Namespace配置网络，其后在启动容器内的进程。现已加入CNCF，成为CNCF主推的网络模型。
 
-<div align="center">![CNI网络](./CNI.png)</div>
+<div align=center>
+	<img src="./CNI.png">
+</div>
 
 
 
