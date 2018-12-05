@@ -1,3 +1,13 @@
+### CNI(Container Network Interface)
+> CNI最早是由CoreOS发起的容器网络规范，是Kubernetes网络插件的基础，其基本的思想为：Container Runtime在创建时，先创建好Network Namespace， 然后调用CNI插件为这个Network Namespace配置网络，其后在启动容器内的进程。现已加入CNCF，成为CNCF主推的网络模型。
+![CNI网络](./CNI.png)
+
+
+
+
+
+
+
 ### Kubernetes Cluster中的网络
 
 * Node Netowrk：承载Kubernetes集群中各个物理节点通信的网络
@@ -26,4 +36,5 @@
 #### 工作原理：
 
 > Flannel通过etcd服务维护了一张节点间的路由表，里面详细记录了各节点的子网网段，
-> 源主机的`Flanneld`服务将原本的数据内容UDP封装后根据`etcd`中维护的路由表投递到目标节点的`flanneld`服务，数据到达后被解包，然后直接进入目标节点的`falnnel0`虚拟网卡，然后被转发到目标主机的`docker0`虚拟网卡
+> 源主机的`Flanneld`服务将原本的数据内容UDP封装后根据`etcd`中维护的路由表投递到目标节点的`flanneld`服务，数据到达后被解包，然后直接进入目标节点的`falnnel0`虚拟网卡，然后被转发到目标主机的`docker0`虚拟网卡，最后由`docker0`路由到达目标容器。
+
