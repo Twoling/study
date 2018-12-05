@@ -5,8 +5,14 @@
 	<img src="./CNI.png">
 </div>
 
+> 这个协议连接了两个组件：容器管理系统和网络插件。它们之间通过 JSON 格式的文件进行通信，实现容器的网络功能。具体的事情都是插件来实现的，包括：创建容器网络空间（network namespace）、把网络接口（interface）放到对应的网络空间、给网络接口分配 IP 等等。
 
-
+* 使用CNI后，容器的IP分配就变成了以下步骤：
+	1. kubelet先创建`pause`容器生成`network namespace`
+	2. 调用`CNI driver`
+	3. `CNI driver`根据配置调用具体的cni插件
+	4. cni插件给`pause`容器配置网络
+	5. `pod`中其他的容器都使用`pause`容器的网络
 
 
 
