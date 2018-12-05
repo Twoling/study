@@ -16,4 +16,6 @@ set noexpandtab
 
 * 竖屏同是滚动
 
-`set scroll-binding`
+```
+set scroll-binding
+```

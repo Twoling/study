@@ -30,4 +30,8 @@ with open(filename) as f_obj:
 print(numbers)
 ```
 
+* json.dumps():
+	* dumps是将dict转化成str格式
 
+* json.loads():
+	* loads是将str转化成dict格式
