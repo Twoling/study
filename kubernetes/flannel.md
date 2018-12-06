@@ -84,6 +84,15 @@
 * Service Network： 由Kubernetes集群中的Services所组成的网络
 * Pod Netowrk：Pod网络，承载集群中各个Pod相互通信的网络
 
+#### Service Network
+* Service是一组Pod的服务抽象，相当于一组Pod的`LB`，负责将请求分发给对应的Pod，Service会为这个LB提供一个IP，一般称为`ClusterIP`
+
+* Service Types：
+	* ClusterIP
+	* NodePort
+	* LoadBalancer
+	* ExternlName
+
 
 #### Pod Netowrk:
 * 同一Pod内不同容器之间通信
