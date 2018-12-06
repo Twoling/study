@@ -8,11 +8,11 @@
 > 这个协议连接了两个组件：容器管理系统和网络插件。它们之间通过 JSON 格式的文件进行通信，实现容器的网络功能。具体的事情都是插件来实现的，包括：创建容器网络空间（network namespace）、把网络接口（interface）放到对应的网络空间、给网络接口分配 IP 等等。
 
 * 使用CNI后，容器的IP分配就变成了以下步骤：
-	1. kubelet先创建`pause`容器生成`network namespace`
-	2. 调用`CNI driver`
-	3. `CNI driver`根据配置调用具体的cni插件
-	4. cni插件给`pause`容器配置网络
-	5. `pod`中其他的容器都使用`pause`容器的网络
+	* kubelet先创建`pause`容器生成`network namespace`
+	* 调用`CNI driver`
+	* `CNI driver`根据配置调用具体的cni插件
+	* cni插件给`pause`容器配置网络
+	* `pod`中其他的容器都使用`pause`容器的网络
 
 
 > 关于网络，`docker`也提出了`CNM`标准，它要解决的问题和`CNI`是重合的，也就是说目前两者是竞争关系。目前`CNM` 只能使用在`docker`中，而`CNI`可以使用在任何容器运行时。`CNM`主要用来实现`docker`自身的网络问题，也就是`docker network`子命令提供的功能。
@@ -102,7 +102,7 @@
 ### Flannel网络
 
 > Flannel是CoreOS团队针对Kubernetes设计的一个覆盖网络(Overlay Netowrk)，用于帮助kubernetes集群中的每个节点分配一个完整的且与集群其他节点不冲突的子网，使不同主机上的docker容器具有全局唯一的虚拟IP地址
-
+>
 > Flannel实质上是一种`覆盖网络(overlay network)`, 也就是将TCP数据包装载另一种网络包里面金星路由转发和通信，目前已经支持UDP、VxLAN、AWS VPC和GCE路由等数据转发方式。
 >默认的节点间数据通信方式是UDP转发。
 
