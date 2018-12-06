@@ -1,13 +1,3 @@
-# Kubernetes网络
-* [CNI]
-* [官方网络插件](#官方网络插件)
-* [CNI插件]
-	* [Overview](#Overview)
-	* [CNi插件必须支持的操作](#CNi插件必须支持的操作)
-* [Kubernetes集群网络类型](#"Kubernetes Cluster中的网络")
-
-
-
 # CNI(Container Network Interface)
 > CNI最早是由CoreOS发起的容器网络规范，是Kubernetes网络插件的基础，其基本的思想为：Container Runtime在创建时，先创建好Network Namespace， 然后调用CNI插件为这个Network Namespace配置网络，其后在启动容器内的进程。现已加入CNCF，成为CNCF主推的网络模型。
 
