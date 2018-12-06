@@ -1,8 +1,8 @@
 # Kubernetes网络
 ## 目录
-* [CNI](#CNI(Container Network Interface))
+* [CNI](#CNI)
 * [官方网络插件](#官方网络插件)
-* [CNI插件](CNI Plugin)
+* [CNI插件](CNI_Plugin)
 	* [Overview](#Overview)
 
 
