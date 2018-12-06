@@ -62,11 +62,41 @@ m = re.match('foo', 'foo')
 if m:
 	m.group()
 
-# 输出
-'foo'
+# 输出: 'foo'
 ```
 
 * re.search()：
+	* 当要搜索的模式出现在一个字符串中间的概率，远大于出现在字符串起始位置的概率时，可以选择使用`search()`，`search()`的工作方式与`match()`完全一致，不同之处在于`search()`会用它的字符串参数，在任意位置对给定正则表达式模式搜索第一次出现的匹配对象。如果搜索到成功的匹配，就会返回一个匹配对象，否则就返回`None`
+
+	* `search()`函数不但会搜索字符串中第一次出现的位置，而且严格地对字符串从左到右搜索。
+
+```
+# match()与search()对比
+str = 'abcfood'
+
+m = re.match('foo', str)
+if m:
+	m.group()
+else:
+	print('Matching Failed.')
+
+# 输出:  Matching Failed.
+
+m = re.search('foo', str)
+if m:
+	m.group()
+else:
+	print('Matching Failed.')
+
+# 输出： 'foo'
+
+```
+
+
+
+
+
+
 
 
  
