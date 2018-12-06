@@ -39,12 +39,12 @@
 	* host-local：基于本地文件的IP分配和管理，把分配的IP地址保存在文件中
 	* dhcp：从已经运行的`DHCP`服务器中获取IP地址
 
-### CNI Plugin
-#### Overview
+## CNI Plugin
+### Overview
 > 每个CNI网络插件必须实现为容器管理系统调用的可执行文件（例如rkt或kubernetes）
 > CNI插件负责将网络接口插入容器网络名称空间，并在主机上进行任何必要的修改（例如：将veth的另一端连接到桥中）。然后，它应该通过调用适当的`IPAM`插件将IP分配给接口并设置与IP地址管理部分一致的路由
 
-##### CNi插件必须支持的操作：
+### CNi插件必须支持的操作：
 
 * `ADD`：将容器添加到网络
 <!-- 	* 参数：
@@ -54,13 +54,20 @@
 		* Extra arguments：这提供了一种替代机制，允许基于每个容器简单地配置CNI插件。
 		* Name of the interface inside the container：这是应该分配给在容器内创建的接口的名称（网络命名空间）; 因此，它必须符合Linux对接口名称的标准限制。
 	* 结果
-		* Interface list：
-		* IP configuration assigned to each interface：
-		* DNS infomation： -->
-
+		* Interface list：根据插件，这可以包括沙箱（例如，容器或管理程序）接口名称和/或主机接口名称，每个接口的硬件地址以及接口所在的沙箱（如果有）的详细信息。
+		* IP configuration assigned to each interface：分配给沙箱和/或主机接口的IPv4和/或IPv6地址，网关和路由。
+		* DNS infomation：包含域名服务器，域，搜索域和选项的DNS信息的字典。
+ -->
 * `DEL`：从容器中删除网路
-	* 参数
-
+<!-- 	* 参数：
+		* Container ID：同上
+		* Network NameSpace path：同上
+		* Network configuration：同上
+		* Extra arguments：同上
+		* Name of the interface inside the container：同上
+	* 删除时所有参数传递应与添加时的参数相同。
+	* 删除操作应释放所配置网络中提供给`Container ID`所有的资源
+ -->
 
 <!-- > 每个`CNI`网络插件必须实现为容器管理系统调用的可执行文件(例如rkt或kubernetes)
 >
