@@ -1,10 +1,10 @@
 # Kubernetes网络
-## 目录
-* [CNI](#CNI)
+* [CNI]
 * [官方网络插件](#官方网络插件)
-* [CNI插件](CNI_Plugin)
+* [CNI插件]
 	* [Overview](#Overview)
-
+	* [CNi插件必须支持的操作](#CNi插件必须支持的操作)
+* [Kubernetes集群网络类型](#KubernetesCluster中的网络)
 
 
 
