@@ -16,8 +16,8 @@
 ## Service Types：
 * ClusterIP：使用集群内部IP暴露服务，选择此值服务只能在集群内部访问
 * NodePort：通过`Node`上的IP和静态端口暴露服务，`NodePort`会路由到`ClusterIP`服务，这个`ClusterIP`会自动创建，通过请求`<NodeIP>:<NodePort>`，可以从集群外部访问一个`NodePort`服务。
-* LoadBalancer：
-* ExternlName
+* LoadBalancer：使用云提供商的负载局衡器，可以向外部暴露服务。外部的负载均衡器可以路由到`NodePort`服务和`ClusterIP`服务。
+* ExternlName：通过返回`CNAME`和它的值，可以将服务映射到`externalName`字段的内容（例如，`foo.bar.example.com`）。 没有任何类型代理被创建，这只有`Kubernetes 1.7`或更高版本的`kube-dns`才支持
 
 ### 创建Service时指定IP地址
 * 在创建`Service`时，可以通过`spec.clusterIP`来指定自己在集群中的IP地址，要注意，指定的IP地址必须合法，并且在`service-cluster-ip-range` CIDR的范围之内。
