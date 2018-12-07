@@ -7,6 +7,9 @@
 
 * Endpoints：kubernetes会根据`service`关联到的所有`Pod IP`和`Service`定义的`targetPort`组成一个`endpoints`，若`service`定义中没有`selector`字段，`service`被创建时，`endpoints`不会自动被创建，值为`none`
 
+
+
+
 ## Service Types：
 * ClusterIP
 	* iptalbes代理模式：这种模式下，[kube-proxy](./kube-proxy.md)会监视kubernetes master对`Service`对象和`Endpoint`的对象添加和移除，对每个`Service`都会设置`iptables`规则，从而捕获到达该`Service`的`ClusterIP`（虚拟IP）和端口的请求，进而将请求重定向到`Service`的一组backend的某个`Pod`上
