@@ -85,13 +85,16 @@
 * Pod Netowrk：Pod网络，承载集群中各个Pod相互通信的网络
 
 #### Service Network
-* Service是一组Pod的服务抽象，相当于一组Pod的`LB`，负责将请求分发给对应的Pod，Service会为这个LB提供一个IP，一般称为`ClusterIP`
+* Service是一组Pod的服务抽象，相当于一组Pod的`LB`，负责将请求分发给对应的Pod，通常通过`Label Selector`选择关联的后端`Pod`， Service会为这个`LB`提供一个IP，一般称为`ClusterIP`
 
-* Service Types：
-	* ClusterIP
-	* NodePort
-	* LoadBalancer
-	* ExternlName
+* Endpoints：kubernetes会根据`service`关联到的所有`Pod IP`和`Service`定义的`targetPort`组成一个`endpoints`，若`service`定义中没有`selector`字段，`service`被创建时，`endpoints`不会自动被创建，值为`none`
+
+#### Service Types：
+* ClusterIP
+	* iptalbes代理模式，
+* NodePort
+* LoadBalancer
+* ExternlName
 
 
 #### Pod Netowrk:
