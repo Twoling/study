@@ -39,6 +39,8 @@ lsmod | grep -E 'ip_vs|nf_conntrack_ipv4'
 	kubectl edit configmap kube-proxy -n kube-system
 	...
 	apiVersion: v1
+	data:
+	...
 		ipvs:
 	      excludeCIDRs: null
 	      minSyncPeriod: 0s
@@ -46,7 +48,7 @@ lsmod | grep -E 'ip_vs|nf_conntrack_ipv4'
 	      syncPeriod: 30s
 	    kind: KubeProxyConfiguration
 	    metricsBindAddress: 127.0.0.1:10249
-	    mode: "ipvs"							--->  修改为"ipvs"
+	    mode: "ipvs"				--->  修改为"ipvs"
 	...
 	```
 
