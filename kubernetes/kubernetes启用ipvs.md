@@ -1,5 +1,5 @@
 ### Kubernetes启用ipvs
-* 注：教程环境为kubernetes 1.12 *
+* __注：教程环境为kubernetes 1.12__
 
 --------
 
