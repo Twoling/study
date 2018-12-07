@@ -28,12 +28,12 @@ lsmod | grep -E 'ip_vs|nf_conntrack_ipv4'
 
 * 现有集群启用`ipvs`
 
-	1. 修改`/etc/sysconfig/kubelet`添加一下参数
+	* 修改`/etc/sysconfig/kubelet`添加一下参数
 	```
 	KUBE_PROXY_MODE=ipvs
 	```
 
-	2. 修改`kube-proxy`的`configmap`
+	* 修改`kube-proxy`的`configmap`
 	```
 	# 修改kube-proxy的'mode'的值为 ipvs
 	kubectl edit configmap kube-proxy -n kube-system
@@ -52,12 +52,12 @@ lsmod | grep -E 'ip_vs|nf_conntrack_ipv4'
 
 * 初始化时指定使用`ipvs`
 
-	1. 修改`/etc/sysconfig/kubelet`添加一下参数
+	* 修改`/etc/sysconfig/kubelet`添加一下参数
 	```
 	KUBE_PROXY_MODE=ipvs
 	```
 
-	2. 正常初始化集群
+	* 正常初始化集群
 	```
 	kubeadm init .....
 	```
