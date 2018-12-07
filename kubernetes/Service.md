@@ -7,17 +7,24 @@
 
 * Endpoints：kubernetes会根据`service`关联到的所有`Pod IP`和`Service`定义的`targetPort`组成一个`endpoints`，若`service`定义中没有`selector`字段，`service`被创建时，`endpoints`不会自动被创建，值为`none`
 
-
-
-
 ## Service Types：
-* ClusterIP
+* ClusterIP：使用集群内部IP暴露服务，选择此值服务只能在集群内部访问
 	* iptalbes代理模式：这种模式下，[kube-proxy](./kube-proxy.md)会监视kubernetes master对`Service`对象和`Endpoint`的对象添加和移除，对每个`Service`都会设置`iptables`规则，从而捕获到达该`Service`的`ClusterIP`（虚拟IP）和端口的请求，进而将请求重定向到`Service`的一组backend的某个`Pod`上
 
 	* 任何到达`Service`的`IP:PORT`的请求，都会被代理到一个合适的backend，不需要客户端知道关于Kubernetes、`Service`或`Pod`的任何信息，如果初始选择的`Pod`没有响应，`iptables`代理能够自动重试另一个`Pod`，不过需要配置`readiness probes`
 
 ![services-iptables-overview](./services-iptables-overview.svg)
 
-* NodePort
-* LoadBalancer
+* NodePort：通过`Node`上的IP和静态端口暴露服务，`NodePort`会路由到`ClusterIP`服务，这个`ClusterIP`会自动创建，通过请求`<NodeIP>:<NodePort>`，可以从集群外部访问一个`NodePort`服务。
+* LoadBalancer：
 * ExternlName
+
+### 创建Service时指定IP地址
+* 在创建`Service`时，可以通过`spec.clusterIP`来指定自己在集群中的IP地址，要注意，指定的IP地址必须合法，并且在`service-cluster-ip-range` CIDR的范围之内。
+
+### 服务发现
+* Kubernetes支持两种服务发现形式：
+	* 环境变量
+		* 当`Pod`运行在`Node`上，`kubelet`会为每个活跃的`Service`添加一组环境变量，简单的 `{SVCNAME}_SERVICE_HOST`和`{SVCNAME}_SERVICE_PORT`变量，这里`Service`的名称需大写，横线被转换成下划线。 它同时支持`Docker links`兼容变量。
+	* DNS
+		* DNS服务是集群中的可选插件，这个DNS服务通过`Kubernetes API`监视着每个新的`Service`的创建并且在DNS上生成相应的记录，如果在整个集群中启用了DNS服务，那么集群中的所有`Pod`都应该能够自动对`Service`进行名称解析。
