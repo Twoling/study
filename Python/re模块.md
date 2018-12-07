@@ -72,9 +72,9 @@ if m:
 
 ```
 # match()与search()对比
-str = 'abcfood'
+c = 'abcfood'
 
-m = re.match('foo', str)
+m = re.match('foo', c)
 if m:
 	m.group()
 else:
@@ -82,7 +82,7 @@ else:
 
 # 输出:  Matching Failed.
 
-m = re.search('foo', str)
+m = re.search('foo', c)
 if m:
 	m.group()
 else:
@@ -92,9 +92,28 @@ else:
 
 ```
 
+* 分组：
+
+```
+c = 'abc-123'
+
+m = re.match('(\w+)-(\d+)', c)
+
+m.group(0) --> 'abc-123'
+m.group(1) --> 'abc'
+m.group(2) --> '123'
+m.groups() --> ('abc', '123')
+
+```
 
 
-
+* re.findall()
+	* `findall()`查询某个字符串中正则表达式模式全部非重复出现的情况，`findall()`总是返回一个列表，如果`findall()`没有找到匹配的部分，就返回一个空列表，如果匹配成功，列表将包含所有匹配成功部分(从左到右按出现顺序排列)
+```
+c = 'my car, you car, other car.'
+m = re.findall('car', c)
+print(m)  -->  ['car', 'car', 'car']
+```
 
 
 
