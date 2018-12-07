@@ -19,6 +19,8 @@
 * LoadBalancer：使用云提供商的负载局衡器，可以向外部暴露服务。外部的负载均衡器可以路由到`NodePort`服务和`ClusterIP`服务。
 * ExternlName：通过返回`CNAME`和它的值，可以将服务映射到`externalName`字段的内容（例如，`foo.bar.example.com`）。 没有任何类型代理被创建，这只有`Kubernetes 1.7`或更高版本的`kube-dns`才支持
 
+----------------
+
 ### 创建Service时指定IP地址
 * 在创建`Service`时，可以通过`spec.clusterIP`来指定自己在集群中的IP地址，要注意，指定的IP地址必须合法，并且在`service-cluster-ip-range` CIDR的范围之内。
 
