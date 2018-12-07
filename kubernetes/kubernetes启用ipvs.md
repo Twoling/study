@@ -1,5 +1,6 @@
 ### Kubernetes启用ipvs
-** 注：教程环境为kubernetes 1.12 **
+* 注：教程环境为kubernetes 1.12 *
+
 --------
 
 * 安装依赖
