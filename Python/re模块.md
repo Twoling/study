@@ -183,3 +183,33 @@ that line, it's the best
 # (?im) == re.I 与 re.M的集合，
 re.M/MULTILINE：多行字符串作为目标字符串时，^和$不作为整个字符串的起始和结束，而作为整个字符串每一行的起始和结束。
 ```
+
+* `re.S/DOTALL`
+```
+re.findall(r'th.+', '''
+The first line,
+the second line,
+the third line
+''')
+['the second line', 'the third line']
+
+re.findall(r'(?s)th.+', '''
+The first line,
+the second line,
+the third line
+''')
+['the second line\nthe third line\n']
+```
+
+* `re.X/VERBOSE`
+```
+re.search(r'''(?x)
+	\((\d{3})\)	# 区号
+	[ ]			# 空白符
+	(\d{3})		# 前缀
+	-			# 横线
+	(\d{4})		# 终点数字
+''', '(800) 555-1212').groups()
+
+('800', '555', '1212')
+```
