@@ -115,6 +115,27 @@ m = re.findall('car', c)
 print(m)  -->  ['car', 'car', 'car']
 ```
 
+<!-- * re.finditer()
+	* `finditer()`是一个与`findall()`类似但比`findall()`更省内存的变体，明显的不同在于`finditer()`在匹配对象中迭代，，而`findall()`返回的是一个列表。
+```
+s = 'This and that'
+re.i
+```
+ -->
+
+* re.sub() -- re.subn()
+	* `sub()`与`subn()`两者几乎一样，都是将字符串中匹配正则表达式的部分进行某种形式的替换，不同的是`subn()`还会额外返回一个表示替换的总数。
+```
+re.sub('a', 'b', 'result: aac')
+'result: bbc'
+
+re.subn('a', 'b', 'result: aac')
+('result: bbc', 2)
+
+```
+
+* re.split()
+	* 
 
 
 
