@@ -167,5 +167,19 @@ for i in DATA:
 
 * `re.I/IGNORECASE`
 ```
-re.findall()
+re.findall(r'(?i)yes', 'Yes? yEs! YES.')
+['Yes', 'yEs', 'YES']
+
+re.findall(r'(?i)th\w+', 'The quickest way is through this tunnel.')
+['The', 'through', 'this']
+
+re.findall(r'(?im)(^th[\w ]+', """
+This line is the first,
+another line,
+that line, it's the best
+""")
+['This line is the first', 'that line']
+
+# (?im) == re.I 与 re.M的集合，
+re.M/MULTILINE：多行字符串作为目标字符串时，^和$不作为整个字符串的起始和结束，而作为整个字符串每一行的起始和结束。
 ```
