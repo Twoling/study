@@ -56,6 +56,40 @@
 		```
  -->
 
+## Headless Service
+> 有时候不需要或者不想要负载均衡，以及单独的`Service IP`，遇到这种情况，可以指定`Cluster IP(spec.clusterIP)`的值为`None`来创建`Headless Service`
+> 这个选项允许开发人员自由寻找他们自己的方式，从而降低与Kubernetes系统的耦合性，应用仍然看恶意使用一种自注册的模式和适配器，对其他需要发现机制的系统能够很容易的基于这个API来构建。
+> 对`Headless Service`并不会分配`Cluster IP`，`kube-proxy`不会处理他们，而且平台不会为他们进行负载均衡和路由，DNS如何实现自动配置，依赖于`Service`是否定义了`selector`。
+
+* 配置了`Selector`
+	* 对定义了`selector`的`Headless Service`， `Endpoint`控制器再`API`中创建了`Endpoints`记录，并且修改DNS配置返回A记录，通过这个地址直接到达`Service`的后端`Pod`上。
+* 没配置`Selector`
+	* 对没有定义的`selector`的`Headless Service`，`Endpoint`控制器不会自动创建`Endpoints`记录，因此需要手动将`Service`映射到对应的`endpoints`
+	```
+	# 定义没有selector的headless service
+	~]# cat headless-svc.yaml
+	apiVersion: v1
+	kind: Service
+	metadata:
+	  labels:
+	    app: myapp-svc
+	  name: myapp
+	spec:
+	  type: ClusterIP
+	  clusterIP: None
+	---
+	# 手动创建endpoints
+	apiVersion: v1
+	kind: Endpoints
+	metadata:
+	  name: myapp
+	subsets:
+	- addresses:
+	  - ip: 192.168.21.54
+	  ports:
+	  - name: mysql
+	    port: 3306
+	```
 
 
 
