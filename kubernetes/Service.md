@@ -30,6 +30,32 @@
 	* DNS
 		* DNS服务是集群中的可选插件，这个DNS服务通过`Kubernetes API`监视着每个新的`Service`的创建并且在DNS上生成相应的记录，如果在整个集群中启用了DNS服务，那么集群中的所有`Pod`都应该能够自动对`Service`进行名称解析。
 		* Kubernetes也支持对端口名称的`DNS SRV（Service）`记录。 如果名称为`"my-service.my-ns"`的`Service`有一个名为`"http"`的`TCP`端口，可以对`"_http._tcp.my-service.my-ns"`执行`DNS SRV`查询，得到`"http"`的端口号。
+<!-- 		```
+		~]# dig -t srv _http._tcp.myapp.default.svc.cluster.local @10.96.0.10
+		; <<>> DiG 9.9.4-RedHat-9.9.4-72.el7 <<>> -t srv _http._tcp.myapp-svc.default.svc.cluster.local @10.96.0.10
+		;; global options: +cmd
+		;; Got answer:
+		;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 41367
+		;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 2
+
+		;; OPT PSEUDOSECTION:
+		; EDNS: version: 0, flags:; udp: 4096
+		;; QUESTION SECTION:
+		;_http._tcp.myapp-svc.default.svc.cluster.local.	IN SRV
+
+		;; ANSWER SECTION:
+		_http._tcp.myapp-svc.default.svc.cluster.local.	5 IN SRV 0 100 8080 myapp-svc.default.svc.cluster.local.
+
+		;; ADDITIONAL SECTION:
+		myapp-svc.default.svc.cluster.local. 5 IN A	10.106.26.196
+
+		;; Query time: 1 msec
+		;; SERVER: 10.96.0.10#53(10.96.0.10)
+		;; WHEN: Sat Dec 08 23:42:49 EST 2018
+		;; MSG SIZE  rcvd: 227
+		```
+ -->
+
 
 
 
