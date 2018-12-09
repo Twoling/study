@@ -54,6 +54,8 @@ lsmod | grep -E 'ip_vs|nf_conntrack_ipv4'
 	...
 	```
 
+	* 重启相关服务或者删除`kube-proxy`的相关pod，pod自动重建之后就会创建相关`ipvs`规则。
+
 * 初始化时指定使用`ipvs`
 
 	* 修改`/etc/sysconfig/kubelet`添加一下参数
@@ -65,3 +67,10 @@ lsmod | grep -E 'ip_vs|nf_conntrack_ipv4'
 	```
 	kubeadm init .....
 	```
+
+### 安装`ipvsadm`查看生成的规则
+```
+yum -y install ipvsadm
+
+ipvsadm -ln
+```
