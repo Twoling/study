@@ -85,8 +85,10 @@
 
 * 配置了`Selector`
 	* 对定义了`selector`的`Headless Service`， `Endpoint`控制器再`API`中创建了`Endpoints`记录，并且修改DNS配置返回A记录，通过这个地址直接到达`Service`的后端`Pod`上。
+	* 定义了`selector`的`Headless Service`，类似于DNS轮训的方式返回所有后端的IP地址
 * 没配置`Selector`
 	* 对没有定义的`selector`的`Headless Service`，`Endpoint`控制器不会自动创建`Endpoints`记录，因此需要手动将`Service`映射到对应的`endpoints`
+	* 可以手动将集群外的服务以`Headless Service`的形式映射到kubernetes集群内、
 	```
 	# 定义没有selector的headless service
 	~]# cat headless-svc.yaml
