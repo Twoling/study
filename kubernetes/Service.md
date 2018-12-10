@@ -126,6 +126,7 @@
 * ExternlName：
 	* 通过返回`CNAME`和它的值，可以将服务映射到`externalName`字段的内容（例如，`foo.bar.example.com`）。 没有任何类型代理被创建，这只有`Kubernetes 1.7`或更高版本的`kube-dns`才支持
 	```
+	# 定义externalName Service
 	~]# cat exteranlName.yaml
 	apiVersion: v1
 	kind: Service
