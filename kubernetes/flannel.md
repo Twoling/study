@@ -89,14 +89,6 @@
 
 * Endpoints：kubernetes会根据`service`关联到的所有`Pod IP`和`Service`定义的`targetPort`组成一个`endpoints`，若`service`定义中没有`selector`字段，`service`被创建时，`endpoints`不会自动被创建，值为`none`
 
-#### Service Types：
-* ClusterIP
-	* iptalbes代理模式，
-* NodePort
-* LoadBalancer
-* ExternlName
-
-
 #### Pod Netowrk:
 * 同一Pod内不同容器之间通信
 	* 在同一Pod中，所有容器共享同一个网络名称空间，共享同一个TCP/IP协议栈，各容器之间可以直接使用`localhost`地址直接访问彼此的端口，这和传统的一组服务运行在一台机器上的环境是一致的，所以此种场景下的应用不需要对网络做出特别的修改就可以移植；这种方式简单、安全、高效，也能减少将已存在的应用从物理机或者虚拟机迁移至容器下运行的那那度。
