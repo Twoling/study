@@ -42,7 +42,7 @@
 	* coredns
 * Network Plugin:
 	* flannel
-	* clico
+	* calico
 
 ## Node节点组件：
 * Node节点组件运行在每一台Node上，位置`Pod`运行并为Kubernetes提供运行时环境
