@@ -23,16 +23,45 @@
 * `etcd`是一个分布式键值存储，旨在可靠、快速的保存和提供给对关键数据的访问，它通过分布式锁、`leader`选举、并行写入障碍实现可靠的分布式协调，`etcd`集群旨在实现高可用性和永久数据存储和检索。
 * `etcd`用于 Kubernetes 的后端存储。所有集群数据都存储在此处。
 
-### kube-scheduler
-
-
 ### kube-controller-manager
+* `kube-controller-manager`运行控制器，它们是处理集群中常规任务的后台线程。逻辑上，每个控制器是一个单独的进程，但为了降杂性，它们都被编低复译成独立的可执行文件，并在单个进程中运行。
+* 控制器：
+	* Node Controller：负责节点出现故障时的通知和响应。
+	* Replication Controller：负责为集群中的每个复制控制器维护正确的`Pod`数量。
+	* Endpoints Controller：负责生成`Endpoints`对象（连接`Service` & `Pods`）。
+	* Service Account & Token Controller：为新命名空间创建默认账号和API访问令牌。
 
+### kube-scheduler
+* `kube-scheduler`监视没有分配节点建的`Pod`，选择一个节点供他们运行。
+
+### DNS:
+* 虽然其他插件并不是必需的，但所有Kubernetes集群都应该具有Cluster DNS，许多示例依赖于它。
+* Cluster DNS 是一个DNS服务器，和您部署环境中的其他DNS服务器一起工作，为Kubernetes服务提供DNS记录。Kubernetes启动的容器自动将DNS服务器包含在DNS搜索中。
 
 ## Node节点组件：
 * Node节点组件运行在每一台Node上，位置`Pod`运行并为Kubernetes提供运行时环境
+
 #### kubelet
+* 在集群中的每个node上运行的agent，它确保了容器运行在Pod中.
+* `kubelet`是主要节点代理，他检测已分配给其节点的`Pod`（通过`apserver`或通过本地配置文件，提供如下功能：
+	* 挂载`Pod`所需要的数据卷(`Volume`)
+	* 下载`Pod`的`secrets`
+	* 通过`Docker`运行`Pod`的容器
+	* 周期性的对容器生命周期进行探测
+	* 如果需要，通过创建镜像`Pod`(`Mirror Pod`)将`Pod`的状态报告回系统的其他部分
+	* 将节点的状态报告回系统的其他部分
+
 #### kube-proxy
+* `kube-proxy`通过维护主机上的网络规则并执行连接转发，实现了Kubernetes服务抽象
+
+#### docker
+* docker用于运行容器
+
+#### supervisord
+* `supervisord`是一个轻量级的进程监控系统，可以用来保证`kubelet`和`docker`运行。
+
+
+
 
 ### Addons
 
