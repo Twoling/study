@@ -33,15 +33,21 @@
 
 ### kube-scheduler
 * `kube-scheduler`监视没有分配节点建的`Pod`，选择一个节点供他们运行。
-
-### DNS:
+ DNS:
 * 虽然其他插件并不是必需的，但所有Kubernetes集群都应该具有Cluster DNS，许多示例依赖于它。
-* Cluster DNS 是一个DNS服务器，和您部署环境中的其他DNS服务器一起工作，为Kubernetes服务提供DNS记录。Kubernetes启动的容器自动将DNS服务器包含在DNS搜索中。
+* Cluster DNS是一个DNS服务器，和您部署环境中的其他DNS服务器一起工作，为Kubernetes服务提供DNS记录。Kubernetes启动的容器自动将DNS服务器包含在DNS搜索中。
+
+### Network Plugin
+* DNS Plugin:
+	* coredns
+* Network Plugin:
+	* flannel
+	* clico
 
 ## Node节点组件：
 * Node节点组件运行在每一台Node上，位置`Pod`运行并为Kubernetes提供运行时环境
 
-#### kubelet
+### kubelet
 * 在集群中的每个node上运行的agent，它确保了容器运行在Pod中.
 * `kubelet`是主要节点代理，他检测已分配给其节点的`Pod`（通过`apserver`或通过本地配置文件，提供如下功能：
 	* 挂载`Pod`所需要的数据卷(`Volume`)
@@ -51,37 +57,14 @@
 	* 如果需要，通过创建镜像`Pod`(`Mirror Pod`)将`Pod`的状态报告回系统的其他部分
 	* 将节点的状态报告回系统的其他部分
 
-#### kube-proxy
+### kube-proxy
 * `kube-proxy`通过维护主机上的网络规则并执行连接转发，实现了Kubernetes服务抽象
 
-#### docker
+### docker
 * docker用于运行容器
 
-#### supervisord
+### supervisord
 * `supervisord`是一个轻量级的进程监控系统，可以用来保证`kubelet`和`docker`运行。
-
-
-
-
-### Addons
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
