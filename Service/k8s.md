@@ -7,10 +7,11 @@
 * 可扩展：它是模块化、可插拔、可挂载、可组合的，支持各种形式的扩展
 * 自修复：它可以自保持应用状态、可自重启、自复制、自缩放的，通过生命式语法提供了强大的自修复能力
 
-## 各组件：
+# 各组件：
 ## Master节点组件：
 * master节点组件提供集群控制平面，master组件可以对集群做出全局决策（例如：调度）并且检测和响应集群事件（当集群中的副本数量不满足复制控制器中'replicas'字段时，启动新的容器）
-#### API-Server：
+
+### API-Server：
 * `API Server`的核心功能主要是为Kubernetes的各类资源对象(如`node`、`Pod`、`Service`)提供了增、删、改、查遗迹`watch`的`HTTP Rest`接口，`API Server`是集群中各个功能模块之间数据交互和通信的中心
 
 * 特性：
@@ -18,15 +19,14 @@
 	* 资源配额控制的入口
 	* 提供完备的集群安全机制
 
-#### etcd
+### etcd
 * `etcd`是一个分布式键值存储，旨在可靠、快速的保存和提供给对关键数据的访问，它通过分布式锁、`leader`选举、并行写入障碍实现可靠的分布式协调，`etcd`集群旨在实现高可用性和永久数据存储和检索。
 * `etcd`用于 Kubernetes 的后端存储。所有集群数据都存储在此处。
 
+### kube-scheduler
 
-#### kube-scheduler
 
-
-#### kube-controller-manager
+### kube-controller-manager
 
 
 ## Node节点组件：
@@ -34,7 +34,7 @@
 #### kubelet
 #### kube-proxy
 
-#### Addons
+### Addons
 
 
 
