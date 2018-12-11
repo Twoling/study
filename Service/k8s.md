@@ -37,7 +37,7 @@
 * 虽然其他插件并不是必需的，但所有Kubernetes集群都应该具有Cluster DNS，许多示例依赖于它。
 * Cluster DNS是一个DNS服务器，和您部署环境中的其他DNS服务器一起工作，为Kubernetes服务提供DNS记录。Kubernetes启动的容器自动将DNS服务器包含在DNS搜索中。
 
-### Network Plugin
+### Addons
 * DNS Plugin:
 	* coredns
 * Network Plugin:
