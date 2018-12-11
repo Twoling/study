@@ -67,13 +67,7 @@
 * `supervisord`是一个轻量级的进程监控系统，可以用来保证`kubelet`和`docker`运行。
 
 
-
-
-
-
-
-
-
+# Other：
 * RESTful
 	* GET
 	* POST
