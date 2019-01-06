@@ -2,10 +2,9 @@
 > HDFS(Hadoop分布式文件系统)是Apache Hadoop项目的一个子项目，被设计成运行在通用硬件上的分布式文件系统，HDFS有着高容错性的特点，并且设计用来部署在低廉的硬件上，而且提供高吞吐量来访问应用程序的数据，适合那些有着超大数据集的应用程序，HDFS放宽了POSIX的要求，这样可以实现流的形式访问文件系统中的数据。
 
 
-* MapReduce是Hadoop的核心，HDFS是提供这些能力的基础
-
-
 ![HDFS Architecture](./hdfsarchitecture.png)
+
+* MapReduce是Hadoop的核心，HDFS是提供这些能力的基础
 
 ## HDFS架构主要由一下几个重要组件所组成
 ### Name Node
