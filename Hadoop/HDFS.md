@@ -25,11 +25,18 @@
 * 不支持随机修改
 	* 仅支持数据的追加，不支持文件的随机修改
 
-* MapReduce是Hadoop的核心，HDFS是提供这些能力的基础
+> MapReduce是Hadoop的核心，HDFS是提供这些能力的基础
 
 ## HDFS架构主要由一下几个重要组件所组成
-### Name Node
-* Name Node(NN)是HDFS的核心组件，管理整个HDFS集群的读写等操作，整个HDFS集群只有一个NN，因此，Name Nodes是一个单点，
+### NameNode
+#### Overview
+* NameNode(NN)是HDFS的核心组件，管理整个HDFS集群的读写等操作，整个HDFS集群只有一个NN，因此，NN是一个单点，NN本身并没有提供HA，所以当NN故障后，整个HDFS就会不可用，NN会存储文件系统内的所有文件的Metadata, 包含拥有着、权限、文件的block位置等，另外，它会将HDFS状态存为snapashot(Fsimage)，保存在NN节点的本地磁盘上，并且将元数据(Metadata)的变更写茹Edit log日志中，但起始Metadata更新都会在Memory中完成，只是记录会写在EditLog
+
+#### 作用：
+* 管理HDFS的名称空间
+* 管理数据块（block）的映射信息
+* 配置副本策略
+* 处理客户端的读写请求
 
 ### Secondary Name Node
 ### Backup Name Node
