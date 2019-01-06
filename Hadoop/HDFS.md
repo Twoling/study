@@ -5,7 +5,7 @@
 * MapReduce是Hadoop的核心，HDFS是提供这些能力的基础
 
 
-[HDFS Architecture](./hdfsarchitecture.png)
+![HDFS Architecture](./hdfsarchitecture.png)
 
 ## HDFS架构主要由一下几个重要组件所组成
 ### Name Node
