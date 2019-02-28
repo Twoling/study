@@ -5,7 +5,7 @@
 * [依赖安装](#依赖安装)
 * [准备Python环境](#准备Python3和Python虚拟环境)
 * [安装Jumpserver](#安装Jumpserver)
-* [安装Coco](#安装-SSH-Server-和-WebSocket-Server:-Coco)
+* [安装Coco](#安装-ssh-server-和-websocket-server-coco)
 * [安装Luna](#安装-Web-Terminal-前端:-Luna)
 * [配置Nginx整合各组件](#配置Nginx整合各组件)
 * [服务启、停](#停掉各服，以后台方式启动)
