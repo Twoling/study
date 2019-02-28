@@ -418,7 +418,7 @@ systemctl start nginx
 systemctl enable nginx
 ```
 
-### 停掉各服务，以后台方式启动
+### 后台方式启动
 
 ##### Jumpserver：`/opt/jumpserver/jms start all -d`
 ##### coco：`/opt/coco/cocod start -d`
