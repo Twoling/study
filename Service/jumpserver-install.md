@@ -8,7 +8,7 @@
 * [安装Coco](#安装-ssh-server-和-websocket-server-coco)
 * [安装Luna](#安装-web-terminal-前端-luna)
 * [配置Nginx整合各组件](#配置Nginx整合各组件)
-* [服务启、停](#停掉各服，以后台方式启动)
+* [服务启、停](#后台方式启动)
 
 #### 环境设置：
 1. 关闭SELinux和防火墙
