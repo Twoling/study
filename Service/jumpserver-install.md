@@ -1,4 +1,15 @@
 ### JumpServer安装
+---
+# 目录
+* [环境配置](环境设置)
+* [依赖安装](依赖安装)
+* [准备Python3和Python虚拟环境](准备Python3和Python虚拟环境)
+* [安装Jumpserver](安装Jumpserver)
+* [安装 SSH Server 和 WebSocket Server: Coco](安装-SSH-Server-和-WebSocket-Server:-Coco)
+* [安装 Web Terminal 前端: Luna](安装-Web-Terminal-前端:-Luna)
+* [配置Nginx整合各组件](配置Nginx整合各组件)
+* [服务启、停](停掉各服，以后台方式启动)
+
 #### 环境设置：
 1. 关闭SELinux和防火墙
 
@@ -87,7 +98,8 @@ trusted-host=mirrors.aliyun.com
 pip3 install -r requirements.txt
 ```
 
-3. Redis安装  Jumpserver 使用 Redis 做 cache 和 celery broke
+3. Redis安装
+* Jumpserver 使用 Redis 做 cache 和 celery broke
 
 ```
 cd /opt/
