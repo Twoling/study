@@ -1,5 +1,5 @@
 # re模块：
-[正则表达式30分钟入门](http://deerchao.net/tutorials/regex/regex.htm)
+* 正则表达式30分钟入门：http://deerchao.net/tutorials/regex/regex.htm
 
 > re模块在古老的`Python 1.5`版中引入，用于替换那些已过时的regex模块和regsub模块---这两个模块在`Python 2.5`版中一移除，而且此后导入这两个模块中的任意一个都会触发`ImportError`异常。
 >
