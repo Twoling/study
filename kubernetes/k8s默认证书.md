@@ -5,7 +5,7 @@
 |:--:|:--|
 |/etc/kubernetes/pki/ca.crt|apiserver.crt、 apiserver-kubelet-client.crt|
 |/etc/kubernetes/pki/front-proxy-ca.crt|front-proxy-client.crt|
-|/etc/kubernetes/pki/etcd/ca.crt|healthcheck-client.crt、 peer.crt、 server.crt|
+|/etc/kubernetes/pki/etcd/ca.crt|healthcheck-client.crt、 peer.crt、 server.crt、 apiserver-etcd-client.crt|
 
 ## CA证书
 ### /etc/kubernetes/pki/ca.crt
@@ -70,4 +70,11 @@
 	* 组织：null
 	* CN：默认为当前主机名
 
+* apiserver-etcd-client.crt
+	* 颁发者：etcd-ca
+	* SAN域名:
+		* localhost
+		* `<IPs>`
+	* 组织：system:masters
+	* CN：kube-apiserver-etcd-client
 
