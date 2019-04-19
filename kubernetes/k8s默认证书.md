@@ -1,6 +1,12 @@
 # Kubernetes的证书链
 * 默认证书链解析
 
+|CA|签发的证书|
+|:--:|:--:|
+|/etc/kubernetes/pki/ca.crt|apiserver.crt、 apiserver-kubelet-client.crt|
+|/etc/kubernetes/pki/front-proxy-ca.crt|front-proxy-client.crt|
+|/etc/kubernetes/pki/etcd/ca.crt|healthcheck-client.crt、 peer.crt、 server.crt|
+
 ## CA证书
 ### /etc/kubernetes/pki/ca.crt
 #### 作用
