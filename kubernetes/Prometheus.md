@@ -67,4 +67,30 @@ Prometheus从根本上是将所有监控数据以时间序列的形式存储在�
 
 ### Summary
 * Summary与Histogram类似，主要用于计算在一定时间窗口范围内度量指标对象的总数以及所有度量指标值的总和
+---
 
+## 记录规则和报警规则
+### 记录规则
+* 记录规则允许我们把一些经常需要使用并且查询时计算量很大的查询表达式，预先计算并保存到一个新的时序。查询这个新的时序比从原始的一个或多个时序实时计算快得多，并且还能够避免重复计算。在一些特殊场景下这甚至是必须的，比如仪表盘里展示的各类定时刷新的数据，数据种类多且需要计算非常快
+
+### 报警规则
+* 报警规则会在条件满足时发送警告到告警管理器（Alertmanager）。
+
+
+
+# Prometheus-operator
+Prometheus是通过pull方式去拉取target的数据，但k8s中所有服务以容器的方式运行，每一个容器的销毁与创建势必会导致target目标失效，不可能通过人工去维持监控目标。
+Protmetheus-operator相当于一个控制器，通过一组用户自定义CRD来实现对不断变化的资源自动化完成对Prometheus Server自身以及配置的自动化管理工作
+
+## Prometheus-operator 自定义资源(CRD)
+### Prometheus
+* 定义了所期望的Prometheus Deployment，Operator保证正在运行的Prometheus的Deployment始终匹配正在运行的资源。
+
+### ServiceMonitor
+* 以声明式方式定义如何监控Service，Operator根据ServiceMonitor的定义的目标来自动生成Prometheus的指标收刮配置(scrape/pull)，可以动态更新Prometheus Server的target列表，并让Prometheus Server去reload配置(prometheus有对应的reload的http接口`/-/reload`)，该资源主要通过Selector拉取匹配特定Labels的Service的Endpoins来进行监控对象的发现。
+
+### PrometheusRule
+* 定义了Prometheus所需的规则文件，该定义包含Prometheus的报警规则和记录规则可以被Prometheus实例加载
+
+### Alertmanager
+* 定义了所需的AlertManager的Deployment，Operator保证正在运行的资源始终匹配Deployment的资源定义
