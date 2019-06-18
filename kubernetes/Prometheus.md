@@ -83,7 +83,7 @@ Protmetheus-operator相当于一个控制器，通过一组用户自定义CRD来
 
 ## Prometheus-operator 自定义资源(CRD)
 ### Prometheus
-* 定义了所期望的Prometheus Deployment，Operator保证正在运行的Prometheus的Deployment始终匹配正在运行的资源。
+* 定义了所期望的Prometheus StatefulSets，Operator保证正在运行的Prometheus Server的状态始终符合生成的StatefulSets的状态
 
 ### ServiceMonitor
 * 以声明式方式定义如何监控Service，Operator根据ServiceMonitor的定义的目标来自动生成Prometheus的指标收刮配置(scrape/pull)，可以动态更新Prometheus Server的target列表，并让Prometheus Server去reload配置(prometheus有对应的reload的http接口`/-/reload`)，该资源主要通过Selector拉取匹配特定Labels的Service的Endpoins来进行监控对象的发现。
@@ -92,7 +92,7 @@ Protmetheus-operator相当于一个控制器，通过一组用户自定义CRD来
 * 定义了Prometheus所需的规则文件，该定义包含Prometheus的报警规则和记录规则可以被Prometheus实例加载
 
 ### Alertmanager
-* 定义了所需的AlertManager的Deployment，Operator保证正在运行的资源始终匹配Deployment的资源定义
+* 定义了所需的AlertManager的StatefulSets，Operator保证正在运行的资源始终匹配StatefulSets的资源定义
 
 
 # PromQL
