@@ -95,7 +95,9 @@ done
 **共享一个磁盘的本地PV具有相同的容量，没有容量隔离，可以将一个磁盘分成多个分区来进行容量隔离**
 
 #### 将磁盘分成多个分区
+
 1. 分区
+
 ```
 parted --script /dev/path/to/disk \
     mklabel gpt \
@@ -115,6 +117,7 @@ parted /dev/path/to/disk print
 * 必须使用设备的唯一的设备路径
 
 1. 查看设备的唯一路径
+
 ```
 ~]# ls /dev/disk/by-id
 lrwxrwxrwx 1 root root  9 Jun  8 12:05 /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0 -> ../../sda
@@ -124,6 +127,7 @@ lrwxrwxrwx 1 root root  9 Jun  8 12:05 /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_
 ```
 
 2. 将块设备链接至发现目录
+
 ```
 ~]# ln -sv /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1 /mnt/disks/
 ```
@@ -140,6 +144,7 @@ lrwxrwxrwx 1 root root  9 Jun  8 12:05 /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_
 # 部署
 
 1. 部署`StorageClass`
+
 ```
 # Only create this for K8s 1.9+
 apiVersion: storage.k8s.io/v1
@@ -155,6 +160,7 @@ reclaimPolicy: Delete
 ```
 
 2. 部署`Provisioner`简化管理
+
 ```
 ---
 # Source: provisioner/templates/provisioner.yaml
@@ -271,6 +277,7 @@ roleRef:
 ``` 
 
 3. 等待所有节点的`provisioner`都正常运行后，使用`kubectl get pv`就可以看到由`provisioner`创建的本地卷
+
 ```
 ~]# kubectl get pv
 local-pv-13ce11dd                          1014Mi     RWO            Delete           Available                                                              managed-local-storage            7m41s
@@ -288,6 +295,7 @@ local-pv-df424c6b                          24Gi       RWO            Delete     
 ```
 
 4. 创建本地持久卷申请
+
 ```
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -301,9 +309,11 @@ spec:
       storage: 5Gi
   storageClassName: managed-local-storage
 ```
+
 注: **此申请会被挂起，直到有Pod被调度才会去申请Bound到本地卷上**
 
 #### 示例
+
 ```
 kind: PersistentVolumeClaim
 apiVersion: v1
