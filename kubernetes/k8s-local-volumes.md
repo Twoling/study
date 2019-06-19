@@ -310,7 +310,7 @@ spec:
   storageClassName: managed-local-storage
 ```
 
-注: **此申请会被挂起，直到有Pod被调度才会去申请Bound到本地卷上**
+注: **此申请会被挂起(因为本地存储类上定义了延迟挂载，只有当有Pod调度时，才会绑定本地PV)**
 
 #### 示例
 
@@ -322,6 +322,7 @@ metadata:
 spec:
   accessModes:
   - ReadWriteOnce
+
   resources:
     requests:
       storage: 5Gi
