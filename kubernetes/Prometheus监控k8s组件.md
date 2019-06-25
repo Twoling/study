@@ -1,0 +1,47 @@
+# Prometheus监控k8s组件
+
+## 为各组件创建`Service`
+
+### kube-scheduler
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kube-system
+  name: kube-scheduler-prometheus-discovery
+  labels:
+    k8s-app: kube-scheduler
+spec:
+  selector:
+    k8s-app: kube-scheduler
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: http-metrics
+    port: 10251
+    targetPort: 10251
+    protocol: TCP
+```
+
+### kube-controller-manager
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kube-system
+  name: kube-controller-manager-prometheus-discovery
+  labels:
+    k8s-app: kube-controller-manager
+spec:
+  selector:
+    k8s-app: kube-controller-manager
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: http-metrics
+    port: 10252
+    targetPort: 10252
+    protocol: TCP
+```
