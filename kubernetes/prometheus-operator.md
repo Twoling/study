@@ -1,4 +1,23 @@
 # Prometheus-operator
+---
+## 目录:
+* [介绍](#介绍)
+* [架构](#Prometheus-opertor-架构)
+* [自定义资源](#Prometheus-operator-自定义资源(CRD))
+  * [Prometheus](#Prometheus)
+  * [ServiceMonitor](#ServiceMonitor)
+  * [PrometheusRule](#PrometheusRule)
+  * [Alertmanager](#Alertmanager)
+* [部署 Promethue Operator](#部署-Promethue-Operator)
+  * [创建名称空间](#创建名称空间)
+  * [Operator RBAC权限](#创建Promethue-Operator所需的RBAC权限)
+* [部署Operator](#部署Promethue-Operator)
+* [部署 Promethues Server](#部署-Promethues-Server)
+  * [为Prometheus Server创建RBAC](#RBAC规则创建)
+* [](#)
+* [](#)
+
+
 ## 介绍
 `Promethue Operator` 是由 `CoreOS` 团队基于 `Operator` 模式做的 `Prometheus` 等相关应用程序资源控制器，适用于在 `Kubernetes` 集群中管理 `Promehteus-server` 等相关程序，其实现原理是通过 `kubernetes` 自定义资源API机制来扩展 `kubernetes` 资源， 使用 `CRD(CustomResourceDefinition)` 来创建和管理应用程序
 
@@ -23,6 +42,7 @@
 
 ## 部署 Promethue Operator
 * 为了方便管理，将所有资源放在同一个名称空间
+####　创建名称空间
 
 ```yaml
 apiVersion: v1
@@ -33,8 +53,7 @@ metadata:
 ```shell
 kubectl create -f namespace.yaml
 ```
-
-* 创建 `Promethue Operator` 所需的 `RBAC` 权限
+#### 创建Promethue Operator所需的RBAC权限
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -162,7 +181,7 @@ spec:
 kubectl create -f opertor-rbac.yaml
 ```
 
-* 部署 `Promethue Operator`
+#### 部署Promethue Operator
 
 ```yaml
 apiVersion: apps/v1
@@ -251,7 +270,7 @@ servicemonitors.monitoring.coreos.com   2019-07-23T07:03:48Z
 ```
 
 ## 部署 Promethues Server
-* `RBAC` 规则创建
+#### RBAC规则创建
 
 ```yaml
 apiVersion: v1
