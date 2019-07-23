@@ -14,10 +14,25 @@
 * [部署Operator](#部署Promethue-Operator)
 * [部署 Promethues Server](#部署-Promethues-Server)
   * [为Prometheus Server创建RBAC](#RBAC规则创建)
-* [](#)
-* [](#)
-
-
+  * [部署](#部署Prometheus)
+  * [暴露服务](#使用Ingress将服务导出用于外部访问)
+* [定义监控目标](#定义监控目标)
+  * [创建ServiceMonitor](#定义监控目标)
+* [定义监控规则](#定义监控规则)
+* [部署 Alertmanager](#部署-Alertmanager-用于报警发送)
+  * [创建sa](#创建sa)
+  * [为alertmanager提供配置](#创建alertmanager-secret)
+  * [创建Alertmanager](#创建Alertmanager资源)
+* [组件安装](#安装-kube-state-metrics-用来导出k8s集群组件的metrics信息)
+  * [kube-state-metrics](#kube-state-metrics)
+    * [RBAC权限创建](#创建所需要的RBAC规则)
+    * [部署kube-state-metrics](#部署kube-state-metrics)
+    * [创建svc与svcMonitor](#创建相应的service以及ServiceMonitor)
+  * [node-exporter](#node-exporter)
+    * [RBAC权限创建](#创建RBAC规则)
+    * [部署node-exporter](#创建daemonsets资源)
+    * [创建svc与svcMonitor](#创建Service和ServiceMonitor)
+    
 ## 介绍
 `Promethue Operator` 是由 `CoreOS` 团队基于 `Operator` 模式做的 `Prometheus` 等相关应用程序资源控制器，适用于在 `Kubernetes` 集群中管理 `Promehteus-server` 等相关程序，其实现原理是通过 `kubernetes` 自定义资源API机制来扩展 `kubernetes` 资源， 使用 `CRD(CustomResourceDefinition)` 来创建和管理应用程序
 
@@ -316,7 +331,7 @@ subjects:
 kubectl create -f prometheus-rbac.yaml
 ```
 
-* 部署
+#### 部署Prometheus
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1
@@ -366,7 +381,7 @@ spec:
 kubectl create -f prometheus-deployment.yaml
 ```
 
-* 使用`Ingress`将服务导出用于外部访问
+#### 使用Ingress将服务导出用于外部访问
 
 ```yaml
 apiVersion: networking.k8s.io/v1beta1
@@ -473,7 +488,7 @@ kubectl create -f PromethueRule.yaml
 
 ## 部署 Alertmanager 用于报警发送
 #### Alertmanager 的部署通过定义 Alertmanager资源来创建
-* 首先创建用于集群身份认证的`Service Account`账号
+#### 创建sa
 
 ```yaml
 apiVersion: v1
@@ -486,6 +501,7 @@ metadata:
 kubectl create -f alertmanager-sa.yaml
 ```
 
+#### 创建alertmanager-secret
 * Alertmanager 启动前需要为其提供一份配置文件，此配置文件在k8s集群中以`Secrets`形式提供
 * 创建alertmanager配置文件
 * 明文
@@ -567,7 +583,7 @@ type: Opaque
 kubectl create -f alertmanager-secret.yaml
 ```
 
-* 创建 `Alertmanager` 资源
+#### 创建Alertmanager资源
 
 ```yaml
 apiVersion: monitoring.coreos.com/v1
@@ -607,7 +623,7 @@ spec:
 > kube-state-metrics在 Kubernetes API中公开未修改的原始数据.
 > 集群度量指标通`HTTP`协议(端口默认80)的`/metrics`接口提供
 
-#### 创建所需要的`RBAC`规则
+#### 创建所需要的RBAC规则
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -748,7 +764,7 @@ metadata:
 kubectl create -f kube-state-metrics-rbac.yaml
 ```
 
-#### 部署
+#### 部署kube-state-metrics
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -856,7 +872,7 @@ spec:
 kubectl create -f kube-state-metrics-deployment.yaml
 ```
 
-#### 创建相应的`service`以及`ServiceMonitor`
+#### 创建相应的service以及ServiceMonitor
 * Service
 
 ```yaml
@@ -925,8 +941,7 @@ kubectl create -f kube-state-metrics-svcMonitor.yaml
 > 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。
 > node-exporter能够采集主机上的运行指标，例如磁盘、内存、CPU等信息，并通过HTTP接口将这些信息输出为Prometheus可以理解的格式供prometheus查询
 
-#### 创建所需的`RBAC`规则
-* RBAC规则
+#### 创建RBAC规则
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -970,7 +985,7 @@ metadata:
 kubectl create -f node-exporter-rbac.yaml
 ```
 
-#### 创建`daemonsets`资源
+#### 创建daemonsets资源
 **因为要监控每个主机的资源信息，所有创建为Daemonsets以便跑在每台机器上收集**
 ```yaml
 apiVersion: apps/v1
@@ -1061,7 +1076,7 @@ spec:
           path: /
         name: root
 ```
-#### 创建`Service`和`ServiceMonitor`
+#### 创建Service和ServiceMonitor
 * service:
 
 ```yaml
