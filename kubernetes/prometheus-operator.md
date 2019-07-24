@@ -38,7 +38,7 @@
 
 ### Operator
 > Operator是CoreOS推出的旨在简化复杂有状态应用管理的框架，它是一个感知应用状态的控制器，通过扩展Kubernetes API来自动创建、管理和配置应用实例。
-> 
+>
 
 ## Prometheus-opertor 架构
 ![Promethues](./prometheus-operator-architecture.png)
@@ -436,6 +436,7 @@ spec:
     - kube-system
   selector:
     matchLabels:
+      # ServiceMonitor通过标签选择相应的SVC，请确保相应的要发现的SVC存在定义的标签
       k8s-app: kube-dns
 ```
 ```bash
@@ -468,8 +469,8 @@ spec:
   - name: InstanceDown
     rules:
     - alert: CoreDNSDown  # 监控名称，报警是会传给alertmanager
-
       annotations:
+        # 注解，在报警触发时也会传给alertmanager
         message: CoreDNS Down
         alerturl: http://alert.k8s.com/#/alerts
         promurl: http://prometheus.k8s.com/alerts
