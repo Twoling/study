@@ -32,9 +32,13 @@
     * [RBAC权限创建](#创建RBAC规则)
     * [部署node-exporter](#创建daemonsets资源)
     * [创建svc与svcMonitor](#创建Service和ServiceMonitor)
-    
+
 ## 介绍
-`Promethue Operator` 是由 `CoreOS` 团队基于 `Operator` 模式做的 `Prometheus` 等相关应用程序资源控制器，适用于在 `Kubernetes` 集群中管理 `Promehteus-server` 等相关程序，其实现原理是通过 `kubernetes` 自定义资源API机制来扩展 `kubernetes` 资源， 使用 `CRD(CustomResourceDefinition)` 来创建和管理应用程序
+`Promethue Operator` 是由 `CoreOS` 团队基于 `Operator ` 框架做的 `Prometheus` 等相关应用程序资源控制器，适用于在 `Kubernetes` 集群中管理 `Promehteus-server` 等相关程序，其实现原理是通过 `kubernetes` 自定义资源API机制来扩展 `kubernetes` 资源， 使用 `CRD(CustomResourceDefinition)` 来创建和管理应用程序
+
+### Operator
+> Operator是CoreOS推出的旨在简化复杂有状态应用管理的框架，它是一个感知应用状态的控制器，通过扩展Kubernetes API来自动创建、管理和配置应用实例。
+> 
 
 ## Prometheus-opertor 架构
 ![Promethues](./prometheus-operator-architecture.png)
