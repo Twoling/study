@@ -1125,6 +1125,3 @@ spec:
     matchLabels:
       k8s-app: node-exporter
 ```
-```bash
-kubectl create -f node-export-svcMonitor.yaml
-```
