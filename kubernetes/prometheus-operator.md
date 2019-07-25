@@ -349,7 +349,7 @@ metadata:
 spec:
   replicas: 3
   # 镜像地址，省略则为默认地址
-  baseImage: registry.iwgame.com/prometheus/prometheus
+  baseImage: quay.io/prometheus/prometheus
   version: v2.10.0
   serviceAccountName: prometheus
   # 关联哪些的名称空间的servicemonitor，{} 为所有名称空间
@@ -794,7 +794,7 @@ spec:
         - --secure-listen-address=:8443
         - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
         - --upstream=http://127.0.0.1:8081/
-        image: registry.iwgame.com/coreos/kube-rbac-proxy:v0.4.1
+        image: quay.io/coreos/kube-rbac-proxy:v0.4.1
         name: kube-rbac-proxy-main
         ports:
         - containerPort: 8443
@@ -811,7 +811,7 @@ spec:
         - --secure-listen-address=:9443
         - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256
         - --upstream=http://127.0.0.1:8082/
-        image: registry.iwgame.com/coreos/kube-rbac-proxy:v0.4.1
+        image: quay.io/coreos/kube-rbac-proxy:v0.4.1
         name: kube-rbac-proxy-self
         ports:
         - containerPort: 9443
@@ -828,7 +828,7 @@ spec:
         - --port=8081
         - --telemetry-host=127.0.0.1
         - --telemetry-port=8082
-        image: registry.iwgame.com/coreos/kube-state-metrics:v1.6.0
+        image: quay.io/coreos/kube-state-metrics:v1.6.0
         name: kube-state-metrics
         resources:
           limits:
@@ -857,7 +857,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        image: registry.iwgame.com/k8s/addon-resizer:1.8.4
+        image: quay.io/k8s/addon-resizer:1.8.4
         name: addon-resizer
         resources:
           limits:
@@ -1124,4 +1124,7 @@ spec:
   selector:
     matchLabels:
       k8s-app: node-exporter
+```
+```bash
+kubectl create -f node-export-svcMonitor.yaml
 ```
