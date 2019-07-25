@@ -1125,3 +1125,18 @@ spec:
     matchLabels:
       k8s-app: node-exporter
 ```
+```bash
+kubectl create -f node-export-svcMonitor.yaml
+=======
+
+### prometheus-adapter
+#### 资源指标API
+> 在k8s 1.8之前，我们可以通过部署 heapster 获取资源指标，但 heapster 的资源获取有自己的路径，不通过apiserver，后来k8s引入了资源指标API(Metrics API)，核心指标不必通过其他途径，可以直接通过k8s的API接口获取
+> k8s中很多组件是依赖于资源指标API的功能 ，比如kubectl top 、hpa，如果没有一个资源指标API接口，这些组件是没法运行的
+> 核心指标API包括：cpu累计利用率、内存实时利用率、pod的资源占用率及容器的磁盘占用率
+
+#### 自定义资源指标API
+> 由Prometheus Adapter提供API，即 custom.metrics.k8s.io，由此可支持任意Prometheus采集到的自定义指标
+> 想让K8s的HPA，获取核心指标以外的其它自定义指标，则必须部署一套prometheus监控系统，让prometheus采集其它各种指标，但是prometheus采集到的metrics并不能直接给k8s用，因为两者数据格式不兼容，还需要另外一个组件(kube-state-metrics)，将prometheus的metrics数据格式转换成k8s API接口能识别的格式，转换以后，因为是自定义API，所以还需要用Kubernetes aggregator在Master节点上的kube-apiserver中注册，以便直接通过/apis/来访问。
+
+#### RBAC创建
