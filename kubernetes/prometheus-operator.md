@@ -1125,3 +1125,11 @@ spec:
     matchLabels:
       k8s-app: node-exporter
 ```
+
+### prometheus-adapter
+#### 资源指标API
+> 在k8s 1.8之前，我们可以通过部署 heapster 获取资源指标，但 heapster 的资源获取有自己的路径，不通过apiserver，后来k8s引入了资源指标API(Metrics API)，核心指标不必通过其他途径，可以直接通过k8s的API接口获取
+> k8s中很多组件是依赖于资源指标API的功能 ，比如kubectl top 、hpa，如果没有一个资源指标API接口，这些组件是没法运行的
+> 核心指标API包括：cpu累计利用率、内存实时利用率、pod的资源占用率及容器的磁盘占用率
+
+#### 自定义资源指标API
