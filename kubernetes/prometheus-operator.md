@@ -857,7 +857,7 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-        image: quay.io/k8s/addon-resizer:1.8.4
+        image: k8s.gcr.io/addon-resizer:1.8.4
         name: addon-resizer
         resources:
           limits:
