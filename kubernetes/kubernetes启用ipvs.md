@@ -6,7 +6,7 @@
 * 安装依赖
 
 ```
-yum -y install ipset
+yum -y install ipset ipvsadm
 ```
 
 * 启用`ipvs`模块
@@ -20,7 +20,7 @@ modprobe -- nf_conntrack_ipv4
 ```
 
 * 检查加载的模块
-
+ipvsadm
 ```
 lsmod | grep -E 'ip_vs|nf_conntrack_ipv4'
 ```
