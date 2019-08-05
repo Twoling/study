@@ -11,7 +11,29 @@
 * `kube-applier`容器：
 	* 定期将本地 `git` 版本库中所有以 `.json` 于 `.yaml` 结尾的文件应用到集群中
 
+|项目地址|https://github.com/box/kube-applier|
+|:--:|:--:|
+
+
 ## 部署清单文件
+* `kube-applier` 镜像需要手动构建
+### 构建环境
+|Go (1.7+)|
+|:--|
+|Docker (17.05+)|
+|Kubernetes cluster|
+
+#### clone 项目到本地
+```shell
+go get github.com/box/kube-applier
+```
+
+#### 构建镜像
+```shell
+cd $GOPATH/src/github.com/box/kube-applier
+make container
+```
+
 ### RBAC文件
 
 ```yaml
@@ -40,47 +62,89 @@ subjects:
 ```yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
-metadata: 
+metadata:
   name: kube-applier
   namespace: kube-system
-spec: 
-  replicas: 1 
-  template: 
-    metadata: 
-      labels: 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
         app: kube-applier
-    spec: 
+    spec:
       serviceAccountName: kube-applier
-      containers: 
+      containers:
         - name: kube-applier
-          command: 
+          command:
             - /kube-applier
-          env: 
-            - name: REPO_PATH
-              value: /k8s/resources/apps/
-            - name: LISTEN_PORT
-              value: 2020
+          env:
+            # 仓库路径，此路径下的所有以.yaml或.json结尾的文件都会被应用
+            - name: "REPO_PATH"
+              value: "/k8s/resources/apps/official"
+           # 端口设定
+            - name: "LISTEN_PORT"
+              value: "2020"
           image: registry.iwgame.com/base/kube-applier:v0.2.0
-          ports: 
+          ports:
             - containerPort: 2020
           volumeMounts:
+            # 挂载git仓库路径
             - name: git-repo
               mountPath: /k8s
         - name: git-sync
-          command: 
+          command:
             - /git-sync
-          env: 
-            - name: GIT_SYNC_REPO
-              value: http://github.com/twoling/test-cd/yaml-templates.git
-            - name: GIT_SYNC_DEST
-              value: resources
-          image: registry.iwgame.com/k8s/git-sync:v3.1.1
-          ports: 
+          env:
+            # git仓库地址
+            - name: "GIT_SYNC_REPO"
+              value: "http://github.com/twoling/test-cd/yaml-templates.git"
+           # 同步到本地哪个目录下
+            - name: "GIT_SYNC_DEST"
+              value: "resources"
+          image: gcr.io/google_containers/git-sync:v3.1.1
+          ports:
             - containerPort: 2020
-          volumeMounts: 
+          volumeMounts:
+           # 挂载卷
             - name: git-repo
               mountPath: /root/git/
-      volumes: 
+      volumes:
+        # 卷定义，用于多容器见共享
         - name: git-repo
           emptyDir: {}
+```
+### deployment和ingress文件
+
+```yaml
+---
+  apiVersion: "v1"
+  kind: "Service"
+  metadata:
+    name: "kube-applier"
+    namespace: "kube-system"
+  spec:
+    ports:
+      - name: "service"
+        port: 80
+        targetPort: 2020
+    selector:
+      app: "kube-applier"
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kube-applier
+  namespace: kube-system
+  annotations:
+    # use the shared ingress-nginx
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: kube-applier.kube.k8s.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kube-applier
+          servicePort: 80
 ```
