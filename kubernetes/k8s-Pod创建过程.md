@@ -5,6 +5,7 @@
 
 ![pod-create](./pod-workflow.png)
 
+#### 创建Pod
 1. 用户通过 `kubectl` 或其他 `API` 客户端提交 `Pod Spec` 给 `API Server`
 
 2. `API Server` 尝试着将 `Pod` 对象的相关信息存入到 `etcd`, 待写入操作执行完成，`API Server` 即会返回确认信息至客户端。
@@ -22,6 +23,24 @@
 8. 在 `etcd` 确认写入操作完成后，`API Server` 将确认信息发送至相关的 `kubelet`
 
 9. `kublet` 还会通过 `container runtime` 获取 `pod` 的状态，然后更新到 `apiserver` 中，最后由 `apiserver` 将信息写入到 `etcd` 中
+
+#### 销毁Pod
+1. 用户发送删除Pod对象的命令
+
+2. Pod被标记为Terminating（2、3、4同时进行）
+
+3. kubelet watch到pod对象转为Terminating状态的同时启动Pod关闭过程（2、3、4同时进行）
+
+4. 同时端点控制器监测到pod对象的关闭行为将其从匹配到此的service资源的Endpoints列表中移除（2、3、4同时进行）
+
+5. 如果当前容器定义了preStop钩子，则其会在Pod对象被标记为Terminating的同时以同步方式执行，如果在宽限期内钩子未执行完成将会再获得2秒的宽限期
+
+6. Pod对象中的容器进程收到TERM信号，使用默认宽限期（30秒）等待主进程退出
+
+7. 如果在宽限期内未正常退出，则发送强制终止的SIGKILL信号
+
+9. kubelet请求apiserver将此pod资源的宽限期设置为0从而完成删除操作，它变得对用户不再课件
+
 
 ### Pod生命周期的重要行为
 * 初始化容器
@@ -55,26 +74,20 @@
 
   * Never：从不重启
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Deployment
-
-
-
 ## ReplicaSet
+###### 核心组成功能
+* 副本数量： 定义了Pod对象的数量
+
+* 标签选择器： 如何选择Pod对象
+
+* Pod模板： 创建Pod对象时使用的模板
+
+所有修改一般都围绕 副本数量与Pod模板进行，所有修改对已有Pod对象不生效，只对新创建的对象生效
+##### ReplicaSet所实现的功能
+*ReplicaSet通过标签选择器来选择Pod对象*
+
+* 确保Pod资源对象的数量精确反映期望值： 确保正在运行的Pod资源对象的数量与资源定义所期望的数量始终保持一致，否则会自动补全所缺或终止多余
+
+* 确保Pod健康运行：探测到由其接管的pod对象因工作节点故障而不可用时，自动请求调度器在其他工作节点创建确实的pod副本
+
+* 弹性伸缩：可以动态伸缩pod资源对象的数量，以应对种种原因的业务波动，在必要时还可以通过HPA（HroizontalPodAutoscaler）控制器来实现pod资源的自动伸缩
