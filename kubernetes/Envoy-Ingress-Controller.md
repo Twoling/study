@@ -183,3 +183,8 @@ ingress.networking.k8s.io/myapp-ingress created
 
 myapp-dep-7bb5f65d4d-7ppkx
 ```
+**有返回容器的hostname即为正常**
+
+## 自定义资源 `IngressRoute`
+待续。。。
+
