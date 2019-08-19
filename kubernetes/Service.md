@@ -12,11 +12,11 @@
 
 ### userspace：
 * 原理图
-![services-userspace-overview](./services-userspace-overview.svg)
+![services-userspace-overview](./images/services-userspace-overview.svg)
 
 ### iptables：
 * 原理图
-![services-iptables-overview](./services-iptables-overview.svg)
+![services-iptables-overview](./images/services-iptables-overview.svg)
 
 ## Endpoints：
 * kubernetes会根据`service`关联到的所有`Pod IP`和`Service`定义的`targetPort`组成一个`endpoints`，若`service`定义中没有`selector`字段，`service`被创建时，`endpoints`不会自动被创建，值为`none`

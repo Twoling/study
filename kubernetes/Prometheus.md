@@ -9,7 +9,7 @@
 * 对于一些定时任务这种短时间内的指标采集，如果采用pull的方式，可能会出现任务已经结束了，Prometheus还没来得及采集，这种问题Prometheus也提供了通过push的方式让客户端主动推送Metrics数据，此功能通过Push Gateway来实现，需要额外搭建Push Gateway并且需要在Prometheus上建立相应的job取Push Gateway上取采集数据
 
 ## Prometheus Architecture
-![Prometheus](./architecture.png)
+![Prometheus](./images/architecture.png)
 
 ## 组件
 ### Prometheus server

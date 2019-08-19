@@ -2,7 +2,7 @@
 > CNI最早是由CoreOS发起的容器网络规范，是Kubernetes网络插件的基础，其基本的思想为：Container Runtime在创建时，先创建好Network Namespace， 然后调用CNI插件为这个Network Namespace配置网络，其后在启动容器内的进程。现已加入CNCF，成为CNCF主推的网络模型。
 
 <div align=center>
-	<img src="./CNI.png">
+	<img src="./images/CNI.png">
 </div>
 
 > 这个协议连接了两个组件：容器管理系统和网络插件。它们之间通过 JSON 格式的文件进行通信，实现容器的网络功能。具体的事情都是插件来实现的，包括：创建容器网络空间（network namespace）、把网络接口（interface）放到对应的网络空间、给网络接口分配 IP 等等。
@@ -114,4 +114,3 @@
 
 > Flannel通过etcd服务维护了一张节点间的路由表，里面详细记录了各节点的子网网段，
 > 源主机的`Flanneld`服务将原本的数据内容UDP封装后根据`etcd`中维护的路由表投递到目标节点的`flanneld`服务，数据到达后被解包，然后直接进入目标节点的`falnnel0`虚拟网卡，然后被转发到目标主机的`docker0`虚拟网卡，最后由`docker0`路由到达目标容器。
-

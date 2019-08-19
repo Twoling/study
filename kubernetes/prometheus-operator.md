@@ -41,7 +41,7 @@
 >
 
 ## Prometheus-opertor 架构
-![Promethues](./prometheus-operator-architecture.png)
+![Promethues](./images/prometheus-operator-architecture.png)
 
 ### Operator：资源控制器
 **创建时会生成几个CRD，通过此这些CRD来管理Prometheus Server等相关配置与相关组件**
@@ -445,7 +445,7 @@ kubectl create -f servicemonitor.yaml
 
 * 此时通过`http://prometheus.k8s.com/targets`即可看到所有的`coredns`实例
 
-![coredns-monitor](./coredns-monitor.png)
+![coredns-monitor](./images/coredns-monitor.png)
 
 * 由`Promehteus`中的`Endpoins`显示可以看出，`Promethue`通过 `ServiceMonitor`来动态发现要监控的target，后续的指标采集直接通过`Pod`的`IP`与`metrics`接口来获取，不通过`Service`去请求，`Service`只是辅助`Promethue`来做目标发现的
 
@@ -489,7 +489,7 @@ kubectl create -f PromethueRule.yaml
 
 * 此时通过`http://prometheus.k8s.com/alerts`即可看到所有的刚刚定义的监控规则
 
-![CoreDNSDown](./coredns-down.png)
+![CoreDNSDown](./images/coredns-down.png)
 
 ## 部署 Alertmanager 用于报警发送
 #### Alertmanager 的部署通过定义 Alertmanager资源来创建
@@ -940,7 +940,7 @@ kubectl create -f kube-state-metrics-svcMonitor.yaml
 ```
 * 此时通过`http://prometheus.k8s.com/targets`即可看到所有的新创建的`kube-state-metrics`目标
 
-![kube-state-metrics](./kube-state-metrics.png)
+![kube-state-metrics](./images/kube-state-metrics.png)
 
 ### node-exporter
 > 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。

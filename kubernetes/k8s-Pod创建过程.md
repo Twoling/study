@@ -3,7 +3,7 @@
 
 ## Pod
 
-![pod-create](./pod-workflow.png)
+![pod-create](./images/pod-workflow.png)
 
 #### 创建Pod
 1. 用户通过 `kubectl` 或其他 `API` 客户端提交 `Pod Spec` 给 `API Server`
