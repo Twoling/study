@@ -30,3 +30,5 @@
   * 通过与 `Kubernetes` 交互来升级和卸载 `charts`
 
 **简单来说，Helm客户端负责管理charts, Tiller server负责管理release**
+
+## Tiller
