@@ -55,7 +55,6 @@ myapp
 ```
 
 
-
 ## 模板开发
 ### 函数
 * `quote`: 引用, 将传递的字符串加双引号
@@ -357,10 +356,12 @@ metadata:
     name: {{ .Release.Name }}-configmap
 data:
     myvalue: "Hello World"
+    # .Values.favorite 的值应该是一个个键值对，不应该为多级嵌套的字典
     {{- range $key, $val := .Values.favorite }}
     {{ $key }}: {{ $val | quote }}
     {{- end}}
 ```
+
 * 生成的结果
 ```
 # Source: myapp/templates/configmap.yaml
@@ -372,4 +373,119 @@ data:
   myvalue: "Hello World"
   drink: "coffee"
   food: "pizza"
+```
+
+## .File
+### 访问模板中的文件
+`config1.toml`
+* `message = Hello from config 1`
+
+`config2.toml`
+* `message = This is config 2`
+
+`config3.toml`
+* `message = Goodbye from config 3`
+
+```yaml
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  {{- $files := .Files }}
+  {{- range list "config1.toml" "config2.toml" "config3.toml" }}
+  {{ . }}: |-
+    {{ $files.Get . }}
+  {{- end }}
+```
+
+* 生成的结果
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: quieting-giraf-configmap
+data:
+  config1.toml: |-
+    message = Hello from config 1
+
+  config2.toml: |-
+    message = This is config 2
+
+  config3.toml: |-
+    message = Goodbye from config 3
+```
+
+* Glob全局模式
+假如有以下目录结构
+
+```
+foo/:
+  foo.txt foo.yaml
+···
+bar/:
+  bar.go bar.conf baz.yaml
+```
+
+```go
+{{ $root := . }}
+{{ range $path, $bytes := .Files.Glob "**.yaml" }}
+{{ $path }}: |-
+{{ $root.Files.Get $path }}
+{{ end }}
+```
+
+```go
+{{ range $path, $bytes := .Files.Glob "foo/*" }}
+{{ base $path }}: '{{ $root.Files.Get $path | b64enc }}'
+{{ end }}
+```
+
+还可以结合 `Glob` 方法来生成 `ConfigMap` 或 `secret`
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conf
+data:
+  # 会自动去除父目录，以文件名为key，内容为value
+  {{- (.Files.Glob "foo/*").AsConfig | nindent 2 }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: very-secret
+type: Opaque
+data:
+  # 会自动去除父目录，以文件名为key，加密文件内容为value
+  {{- (.Files.Glob "bar/*").AsSecrets | nindent 2 }}
+```
+
+也可以手动加密文件内容
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Release.Name }}-secret
+type: Opaque
+data:
+  token: |-
+    {{ .Files.Get "config1.toml" | b64enc }}
+```
+结果
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: lucky-turkey-secret
+type: Opaque
+data:
+  token: |-
+    bWVzc2FnZSA9IEhlbGxvIGZyb20gY29uZmlnIDEK
+```
+访问文件每一行
+```yaml
+data:
+  some-file.txt: {{ range .Files.Lines "foo/bar.txt" }}
+    {{ . }}{{ end }}
 ```
