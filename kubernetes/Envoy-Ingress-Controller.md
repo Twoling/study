@@ -85,7 +85,7 @@ service/contour created
 
 6. 查看部署情况
 ```shell
-kubectl apply -f heptio-contour
+kubectl get pods -n heptio-contour
 NAME            READY   STATUS    RESTARTS   AGE
 contour-8mjk9   2/2     Running   0          78m
 ```
