@@ -43,7 +43,14 @@ github地址： https://github.com/heptio/contour
 git clone https://github.com/heptio/contour
 ```
 
-2. 创建名称空间及自定义资源
+* 最新版的 `contour` 运行初始化容器需要读取名称 `contour` 的 `configmap`，因此，需事先创建
+2. 创建 `configmap`
+```shell
+cd contour/examples/common/
+kubectl craete -f contour-config.yaml
+```
+
+3. 创建名称空间及自定义资源
 默认情况下，contour要求svc为的type为LoadBalance类型才能正常工作，如果本地部署的化无法提供 `LoadBalance` 服务，所以选择 `hostnetwork` 方式工作
 ```shell
 cd contour/examples/ds-hostnet
@@ -55,14 +62,14 @@ customresourcedefinition.apiextensions.k8s.io/ingressroutes.contour.heptio.com c
 customresourcedefinition.apiextensions.k8s.io/tlscertificatedelegations.contour.heptio.com created
 ```
 
-3. 创建RBAC规则
+4. 创建RBAC规则
 ```shell
 kubectl apply -f 02-rbac.yaml 
 clusterrolebinding.rbac.authorization.k8s.io/contour created
 clusterrole.rbac.authorization.k8s.io/contour created
 ```
 
-4. 部署DaemonSet
+5. 部署DaemonSet
 * 修改监听端口
 ```shell
 vim 02-contour.yaml
@@ -77,13 +84,13 @@ kubectl apply -f 02-contour.yaml
 daemonset.apps/contour created
 ```
 
-5. 部署contour service
+6. 部署contour service
 ```shell
 kubectl apply -f 02-service.yaml
 service/contour created
 ```
 
-6. 查看部署情况
+7. 查看部署情况
 ```shell
 kubectl get pods -n heptio-contour
 NAME            READY   STATUS    RESTARTS   AGE
