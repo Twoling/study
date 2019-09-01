@@ -279,6 +279,8 @@ spec:
 ```
 
 * 访问：`http://drone.home.com` (绑定host还是解析，视环境自己定)
+![drone](./images/drone-home.png)
+
 
 * 激活仓库
 
