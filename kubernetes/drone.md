@@ -291,3 +291,45 @@ spec:
 
 3.
 ![drone](./images/drone-active-3.png)
+
+## 测试
+1. 在代码托管仓库根目录下创建 `.drone.yml` 文件
+* `.drone.yml`
+
+```yaml
+kind: pipeline
+name: default
+
+steps:
+- name: init
+  image: busybox:latest
+  commands:
+  - pwd
+
+- name: build
+  image: busybox:latest
+  commands:
+  - echo "start Build $(date '+%F %T')"
+  - echo "build" >> a
+
+- name: test1
+  image: busybox:latest
+  commands:
+  - echo "test1" >> a
+  - cat a
+  
+- name: test2
+  image: busybox:latest
+  commands:
+  - echo "test2" >> a
+  - cat a
+
+- name: deploy
+  image: busybox:latest
+  commands:
+  - echo "deploy" >> a
+  - cat a
+```
+
+* 查看 CI/CD 是否启动
+![cicd](./images/ci-cd-run.png)
