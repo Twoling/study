@@ -279,4 +279,13 @@ spec:
 ```
 
 * 访问：`http://drone.home.com` (绑定host还是解析，视环境自己定)
-![drone](./image/drone-home.png)
+![drone](./images/drone-home.png)
+
+* 激活仓库
+
+1. ![drone](./images/drone-active-1.png)
+
+2. ![drone](./images/drone-active-2.png)
+
+3. ![drone](./images/drone-active-3.png)
+
