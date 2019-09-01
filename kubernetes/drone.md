@@ -283,9 +283,11 @@ spec:
 
 
 * 激活仓库
+1. 
+![drone](./images/drone-active-1.png)
 
-1. ![drone](./images/drone-active-1.png)
+2.
+![drone](./images/drone-active-2.png)
 
-2. ![drone](./images/drone-active-2.png)
-
-3. ![drone](./images/drone-active-3.png)
+3.
+![drone](./images/drone-active-3.png)
