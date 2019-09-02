@@ -19,6 +19,20 @@ modprobe -- ip_vs_sh
 modprobe -- nf_conntrack_ipv4
 ```
 
+* 开机自动加载
+```shell
+cat >> /etc/sysconfig/modules/ipvs.modules <<EOF
+#!/bin/sh 
+#
+
+modprobe -- ip_vs
+modprobe -- ip_vs_rr
+modprobe -- ip_vs_wrr
+modprobe -- ip_vs_sh
+modprobe -- nf_conntrack_ipv4
+EOF
+```
+
 * 检查加载的模块
 ipvsadm
 ```
@@ -58,14 +72,16 @@ lsmod | grep -E 'ip_vs|nf_conntrack_ipv4'
 
 * 初始化时指定使用`ipvs`
 
-	* 修改`/etc/sysconfig/kubelet`添加一下参数
-	```
-	KUBE_PROXY_MODE=ipvs
+	* 创建 `kube-proxy` 配置文件
+	```yaml
+	apiVersion: kubeproxy.config.k8s.io/v1alpha1
+	kind: KubeProxyConfiguration
+	mode: ipvs
 	```
 
 	* 正常初始化集群
 	```
-	kubeadm init .....
+	kubeadm --config kube-proxy.yaml ...
 	```
 
 ### 安装`ipvsadm`查看生成的规则
