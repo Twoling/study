@@ -334,3 +334,9 @@ steps:
 * 查看 CI/CD 是否启动
 
 ![cicd](./images/ci-cd-run.png)
+
+
+
+
+### 吐槽
+Drone 的官方文档真是烂，看完真是摸不着头脑，1.0时还有Kubernetes的相关文档，不就前的文档更新干脆将Kubernetes相关的内容直接删除了，完全不清楚官方适配Kubernetes到何种地步了，也看不到相关消息
