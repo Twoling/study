@@ -7,7 +7,6 @@
 * [部署](#部署)
   * [Kubernetes集群内部署](#Kubernetes集群内部署)
   	* [清单文件](#yaml-清单文件)
-  * [Operator RBAC权限](#创建Promethue-Operator所需的RBAC权限)
 * [测试](#测试)
 
 ## Overviews
