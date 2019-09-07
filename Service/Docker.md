@@ -552,7 +552,6 @@ location /v2/ {
 
 1. 安装etcd：
 ~]# yum -y insatll etcd
-
 2. 
 
 * Replication-controller-manager：确保集群中的pod的状态为spec所定义的所期望的状态；

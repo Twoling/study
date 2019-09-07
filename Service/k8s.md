@@ -12,7 +12,7 @@
 * master节点组件提供集群控制平面，master组件可以对集群做出全局决策（例如：调度）并且检测和响应集群事件（当集群中的副本数量不满足复制控制器中'replicas'字段时，启动新的容器）
 
 ### API-Server：
-* `API Server`的核心功能主要是为Kubernetes的各类资源对象(如`node`、`Pod`、`Service`)提供了增、删、改、查遗迹`watch`的`HTTP Rest`接口，`API Server`是集群中各个功能模块之间数据交互和通信的中心
+* `API Server`的核心功能主要是为Kubernetes的各类资源对象(如`node`、`Pod`、`Service`)提供了增、删、改、查以及`watch`的`HTTP Rest`接口，`API Server`是集群中各个功能模块之间数据交互和通信的中心
 
 * 特性：
 	* 集群管理的API入口
