@@ -5,7 +5,11 @@
 
 ---
 ## 目录:
-* [安装](#安装)
+* [安装 Server端](#安装Server)
+  * [生成密钥](#生成密钥)
+  * [认证配置](#创建OAuth2应用)
+  * [配置](#配置)
+* [安装 Agent端](#安装Agent)
   * [生成密钥](#生成密钥)
   * [认证配置](#创建OAuth2应用)
   * [配置](#配置)
@@ -16,7 +20,7 @@
   * [Wechat](#Wechat插件)
   * [Volume Cache](#Volume-Cache插件)
 
-## 安装
+## 安装Server
 ### 生成密钥
 生成密钥用于客户端连接RPC连接使用
 ```bash
@@ -62,3 +66,48 @@ docker run \
 
 ```
 注: 以上 `DRONE_GITEA_SERVER` `DRONE_SERVER_HOST` `DRONE_SERVER_PROTO` 等变量的值，根据自身环境来进行替换
+
+## 安装Agent
+Drone agent端称为 `Runner`，`Runner` 的种类有3种，分别是
+* Docker Runner
+* Exec Runner
+* SSH Runner
+本文主要讲解 `Docker Runner` 的安装与使用
+
+### 配置
+安装 `Docker Runner` 非常简单，将官方提供的 `Docker image` 拉取到本地，再将 `Drone Server` 的相关信息以环境变量的方式注入到 `Runner` 中即可
+
+```bash
+docker run -d \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -e DRONE_RPC_PROTO=http \
+  -e DRONE_RPC_HOST=${DRONE_SERVER_HOST} \
+  -e DRONE_RPC_SECRET=b244ea22eee4f53163c0727e46431d50 \
+  -e DRONE_RUNNER_CAPACITY=2 \
+  -e DRONE_RUNNER_NAME=drone \
+  -p 3000:3000 \
+  --restart always \
+  --name runner \
+  drone/agent:1
+```
+注: 以上 `DRONE_RPC_SECRET` `DRONE_RPC_HOST` `DRONE_RPC_PROTO` 等变量的值，要根据上面 `Drone Server` 的配置信息来替换成相应的值
+
+## 插件
+### 常用插件列表
+
+
+### docker插件
+
+
+
+### DingTalk插件
+
+
+
+
+### Wechat插件
+
+
+
+### Volume-Cache插件
+
