@@ -1,7 +1,7 @@
 # Drone 
 以Docker的方式运行Drone(Kubernetes集成方案尚不成熟，各种问题还有待官方解决)
 
-![Drone介绍](./drone.md)
+[Drone介绍](./drone.md)
 
 ---
 ## 目录:
