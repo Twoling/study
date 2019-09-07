@@ -10,9 +10,7 @@
   * [认证配置](#创建OAuth2应用)
   * [配置](#配置)
 * [安装 Agent端](#安装Agent)
-  * [生成密钥](#生成密钥)
-  * [认证配置](#创建OAuth2应用)
-  * [配置](#配置)
+  * [配置](#配置Agent)
 * [插件使用](#插件)
   * [常用插件列表](#常用插件列表)
   * [docker插件](#docker插件)
@@ -74,7 +72,7 @@ Drone agent端称为 `Runner`，`Runner` 的种类有3种，分别是
 * SSH Runner
 本文主要讲解 `Docker Runner` 的安装与使用
 
-### 配置
+### 配置Agent
 安装 `Docker Runner` 非常简单，将官方提供的 `Docker image` 拉取到本地，再将 `Drone Server` 的相关信息以环境变量的方式注入到 `Runner` 中即可
 
 ```bash
