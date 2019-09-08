@@ -92,20 +92,165 @@ docker run -d \
 
 ## 插件
 ### 常用插件列表
-
+* docker
+* DingTalk
+* Wechat
+* Volume-Cache
 
 ### docker插件
+* dockerfile内容
+```
+FROM busybox:latest
 
+RUN test -d /data/ || mkdir /data 
 
+RUN ln -s /etc/hostname /data/hostname.html
+
+COPY . /data/
+
+CMD ["httpd","-h","/data/","-f"]
+```
+
+* `.dockerignore` 文件忽略一些文件
+```
+.drone.yml
+README.md
+Dockerfile
+```
+
+* `.drone.yml` 文件示例:
+```yaml
+kind: pipeline
+type: docker
+name: build
+
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    # 默认是dockerhub，可以改成私有仓库地址
+    registry: registry.server.com  
+    # 仓库标识加镜像名
+    repo: myapp/myapp
+    # 根据BUILD ID来作为tag
+    tag: ${CI_BUILD_NUMBER}
+    dockerfile: Dockerfile
+```
+参考: http://plugins.drone.io/drone-plugins/drone-docker/
+
+* 提交测试
+![docker-plugin](./images/docker-plugin-build.png)
 
 ### DingTalk插件
+* 在钉钉中添加自定义机器人
 
+* 将机器人 `token` 保存为`Drone Secret`
 
+* `.drone.yml` 文件内容
+```yaml
+kind: pipeline
+type: docker
+name: build
 
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    # 默认是dockerhub，可以改成私有仓库地址
+    registry: registry.server.com  
+    # 仓库标识加镜像名
+    repo: myapp/myapp
+    # 根据BUILD ID来作为tag
+    tag: ${CI_BUILD_NUMBER}
+    dockerfile: Dockerfile
+
+# 钉钉通知
+- name: dingtalk
+  image: lddsb/drone-dingtalk-message
+  settings:
+    token: 
+      from_secret: ding_token
+    type: markdown
+    message_color: true
+    message_pic: true
+    sha_link: true
+  when:
+    status:
+    - success
+    - failure
+
+```
+
+* 测试
+![dingTalk](./images/dingtalk-plugin-notify.png)
+
+参考: http://plugins.drone.io/lddsb/drone-dingtalk-message/
 
 ### Wechat插件
+* 在企业微信中添加自定义应用
 
+* 将企业`corpid`与应用`secret`保存为`Drone Secret`
 
+* `.drone.yml` 文件内容
+```yaml
+kind: pipeline
+type: docker
+name: build
 
-### Volume-Cache插件
+steps:
+- name: docker
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    # 默认是dockerhub，可以改成私有仓库地址
+    registry: registry.server.com  
+    # 仓库标识加镜像名
+    repo: myapp/myapp
+    # 根据BUILD ID来作为tag
+    tag: ${CI_BUILD_NUMBER}
+    dockerfile: Dockerfile
 
+- name: wechat
+  image: lizheming/drone-wechat
+  settings:
+    corpid: 
+      from_secret: corpid
+    corp_secret:
+      from_secret: corp_secret
+    agent_id: 
+      from_secret: agent_id
+    to_user: "@all"
+    to_party: 1
+    to_tag: ${DRONE_REPO_NAME}
+    msg_url: ${DRONE_BUILD_LINK}
+    safe: 1
+    btn_txt: more
+    title: ${DRONE_REPO_NAME}
+    message: >
+      {%if success %}
+        build {{build.number}} succeeded. Good job.
+      {% else %}
+        build {{build.number}} failed. Fix me please.
+      {% endif %}
+  when:
+    status:
+    - success
+    - failure
+
+```
+
+* 测试
+![wechat](./images/wechat-plugin-notify.png)
+
+参考: http://plugins.drone.io/lizheming/drone-wechat/
