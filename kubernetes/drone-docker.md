@@ -190,6 +190,7 @@ steps:
 ```
 
 * 测试
+
 ![dingTalk](./images/dingtalk-plugin-notify.png)
 
 参考: http://plugins.drone.io/lddsb/drone-dingtalk-message/
@@ -251,6 +252,7 @@ steps:
 ```
 
 * 测试
+
 ![wechat](./images/wechat-plugin-notify.png)
 
 参考: http://plugins.drone.io/lizheming/drone-wechat/
