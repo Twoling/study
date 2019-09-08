@@ -6,7 +6,9 @@
   * [Kubernetes](#在Kubernetes中运行方式)
 * [部署](#部署)
   * [Kubernetes集群内部署](#Kubernetes集群内部署)
-  	* [清单文件](#yaml-清单文件)
+  	 * [清单文件](#yaml-清单文件)
+  * [docker-compose方式启动](#docker-compose方式部署)
+    * [yml文件内容](#compose文件)
 * [测试](#测试)
 
 ## Overviews
@@ -347,7 +349,9 @@ steps:
 ![cicd](./images/ci-cd-run.png)
 
 
-
+## docker-compose方式部署
+### compose文件
+~~~~
 
 ### 吐槽
 Drone 的官方文档真是烂，看完真是摸不着头脑，1.0时还有Kubernetes的相关文档，但也是不清不楚，不久前的文档更新干脆将Kubernetes相关的内容直接删除了，完全不清楚官方适配Kubernetes到何种地步了，也看不到相关消息
