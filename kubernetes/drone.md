@@ -351,7 +351,7 @@ steps:
 
 ## docker-compose方式部署
 ### compose文件
-~~~~
+
 
 ### 吐槽
 Drone 的官方文档真是烂，看完真是摸不着头脑，1.0时还有Kubernetes的相关文档，但也是不清不楚，不久前的文档更新干脆将Kubernetes相关的内容直接删除了，完全不清楚官方适配Kubernetes到何种地步了，也看不到相关消息
