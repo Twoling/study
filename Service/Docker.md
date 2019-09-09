@@ -525,7 +525,7 @@ location /v2/ {
 * iptables
 	* services不需要监听端口，只需要定义访问策略即可；
 
-![Alt text](./docker-kubernetes-archtecture.png)
+![Alt text](./images/docker-kubernetes-archtecture.png)
 
 
 * 容器：用户空间虚拟化；
