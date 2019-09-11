@@ -81,7 +81,40 @@ zookeeper集群是一个基于主从复制的高可用集群，集群中的每�
 
 
 
+## Zookeeper 安装
 
+### 要求
+* JDK 1.8
+
+1. 修改配置文件
+```
+# 进入zookeeper解压后的目录
+cd ZK_PATH
+
+# 复制默认的配置文件
+cp conf/zoo_sample.cfg conf/zoo.cfg
+
+# 修改配置文件，添加以下配置
+server.1=node1:2888:3888
+server.2=node2:2888:3888
+server.3=node3:2888:3888
+```
+
+2. 写入 `myid`
+```
+# 查看 zoo.cfg 中的dataDir，在dataDir中写入myid
+
+echo 1 > /tmp/zookeeper/myid
+
+
+# 每个节点的ID要与zoo.cfg中server后面的id保持一致
+```
+
+3. 启动
+```
+bin/zkServer.sh start
+```
+注: 启动前必须要配置好 `JAVA_HOME` 以及 `myid`
 
 
 
