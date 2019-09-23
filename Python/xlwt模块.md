@@ -1,3 +1,5 @@
+## 示例
+```python
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 import xlwt
@@ -83,3 +85,4 @@ for file in files:
       hight += 1
 
 wb.save('/tmp/test.xls')
+```
