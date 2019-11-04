@@ -1,0 +1,60 @@
+server:
+  http_listen_port: 3200
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+client:
+  url: http://loki-server:3100/loki/api/v1/push
+
+target_config:
+  sync_period: 10s
+
+scrape_configs:
+- job_name: 'system-logs'
+  pipeline_stages:
+    - docker: {}
+  static_config:
+  - targets: {}
+  labels:
+    __path__: /var/log/*
+
+- job_name: 'kubernetes-pods'
+  kubernetes_sd_configs:
+  - role: pod
+  scheme: https
+  tls_config:
+    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+  
+  relabel_configs:
+  - source_labels: ['__meta_kubernetes_pod_node_name'] 
+    target_label: 'node_hostname'
+
+  - source_labels: [__meta_kubernetes_namespace]
+    action: replace
+    target_label: namespace
+
+  - source_labels: [__meta_kubernetes_pod_host_ip]
+    action: replace
+    target_label: node_address
+
+  - source_labels: [__meta_kubernetes_pod_label_app]
+    action: replace
+    target_label: application
+
+  - action: replace
+    separator: _
+    source_labels:
+    - namespace
+    - __meta_kubernetes_pod_name
+    - __meta_kubernetes_pod_uid
+    target_label: __logs
+
+  - replacement: /var/log/pods/$1/*.log
+    separator: /
+    source_labels:
+    - __logs
+    - __meta_kubernetes_pod_container_name
+    target_label: __path__
