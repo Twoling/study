@@ -1,7 +1,7 @@
 # Relable 操作示例
 
 ### action 
-* replace
+#### replace
 replace 将 source_label 指定的标签替换为 target_label，value保持不变
 
 示例:
@@ -45,7 +45,7 @@ namespace
 job: kube-system/coredns
 ```
 
-* drop
+#### drop
 drop 查看source_labels定义的标签的值是否匹配 regex 表达式，如果匹配，则删除相应的label
 
 示例:
@@ -62,7 +62,7 @@ drop 查看source_labels定义的标签的值是否匹配 regex 表达式，如�
 
 结果: 当 `__service__` 的值为空时，执行删除操作
 
-* labelmap
+#### labelmap
 labelmap 将 regex 匹配结果分组中将第一组($1)做为key，结果作为 value，生成新的label
 
 示例:
