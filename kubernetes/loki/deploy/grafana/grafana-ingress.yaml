@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: grafana
+    host: grafana.iwgame.test
+  name: grafana
+  namespace: devops
+spec:
+  rules:
+  - host: grafana.iwgame.test
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: grafana
+          servicePort: http
+

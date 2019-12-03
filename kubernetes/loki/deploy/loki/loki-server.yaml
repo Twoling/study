@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: loki-server
+  name: loki-server
+  namespace: devops
+spec:
+  selector:
+    matchLabels:
+      app: loki-server
+  template:
+    metadata:
+      labels:
+        app: loki-server
+    spec:
+      containers:
+      - image: grafana/loki:latest
+        name: loki
+        args:
+        - "-config.file"
+        - "/etc/loki/config"
+        volumeMounts:
+        - name: data
+          mountPath: /tmp/loki/
+        - name: config
+          mountPath: /etc/loki/
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 3100
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: loki-server
+      - name: config
+        configMap:
+          name: loki-config

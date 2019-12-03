@@ -1,0 +1,15 @@
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: grafana
+#   namespace: monitoring
+# spec:
+#   endpoints:
+#   - interval: 15s
+#     port: http
+#   namespaceSelector:
+#     matchNames:
+#     - devops
+#   selector:
+#     matchLabels:
+#       app: grafana

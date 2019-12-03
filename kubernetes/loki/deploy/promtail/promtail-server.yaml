@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: promtail-daemonset
+  namespace: devops
+  labels:
+    app: promtail
+spec:
+  selector:
+    matchLabels:
+      app: promtail
+  template:
+    metadata:
+      labels:
+        app: promtail
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      serviceAccount: promtail-sa
+      serviceAccountName: promtail-sa
+      containers:
+      - name: promtail-container
+        image: grafana/promtail:latest
+        args:
+        - "-config.file=/etc/promtail/promtail.yaml"
+        volumeMounts:
+        - name: slogs
+          mountPath: /var/log/
+        - name: hlogs
+          mountPath: /var/lib/docker/
+        - name: promtail-config
+          mountPath: /etc/promtail/
+        env:
+        - name: HOSTNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+      volumes:
+      - name: slogs
+        hostPath: 
+          path: /var/log/
+      - name: hlogs
+        hostPath:
+          path: /var/lib/docker/
+      - name: promtail-config
+        configMap:
+          name: promtail-cm

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: promtail
+    host: promtail.iwgame.test
+  name: promtail-ingress
+  namespace: devops
+spec:
+  rules:
+  - host: promtail.iwgame.test
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: promtail
+          servicePort: http
