@@ -1,7 +1,7 @@
 1. 在iptables上添加NAT规则
 ```
-iptables -t nat -A PREROUTING -d <DEST_IP> -p <PROTOCOL> --dport 21 -j MASQUERADE
-iptables -t nat -A POSTROUTING -d <local_ip> -p <PROTOCOL> --dport 21 -j DNAT --to-destination <DESC_IP>:21
+iptables -t nat -A PREROUTING -d <local_ip> -m <PROTOCOL> -p <PROTOCOL> --dport 21 -j DNAT --to-destination <local_ip>
+iptables -t nat -A POSTROUTING -d <REMOTE_FTP_SERVER_IP> -m <PROTOCOL> -p <PROTOCOL> --dport 21 -j MASQUERADE
 ``` 
 
 2. 装载系统模块 
