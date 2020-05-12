@@ -149,3 +149,12 @@ ceil[ 5 * ( 93.4 / ( 200 * 50% ) ]
 ->  93.4 / 100 = 0.943
 ->  0.943 在容忍范围内(接近1, 范围： 0.9 ~ 1.1)，放弃缩容
 ```
+
+### 参数
+|参数|作用|
+|:--|:-|
+|`--horizontal-pod-autoscaler-tolerance`|容忍值浮动范围，默认为0.1，在此浮动范围内，不做扩缩容操作|
+|`--horizontal-pod-autoscaler-sync-period`|HPA 控制循环的运行周期，默认 15 秒|
+|`--horizontal-pod-autoscaler-initial-readiness-delay`|Pod 准备时间间隔，默认 30 秒，在此期间为就绪的 Pod 不会纳入计算|
+|`--horizontal-pod-autoscaler-cpu-initialization-period`|Pod 初始化间隔，默认5分钟|
+|`--horizontal-pod-autoscaler-downscale-stabilization`|缩放间隔，默认 5 分钟，避免指标短时间内的快速波动造成的频繁扩缩容|
